@@ -49,6 +49,8 @@ public class PlaceBall : MonoBehaviour {
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * maxSpeed;
         }
 
+        transform.Rotate(new Vector3(0, 0, GetComponent<Rigidbody2D>().velocity.magnitude * 400 * Time.deltaTime));
+
         if (trigger)
         {
             triggerTimer += Time.deltaTime;
