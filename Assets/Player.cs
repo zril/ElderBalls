@@ -8,13 +8,12 @@ public class Player : MonoBehaviour {
     public int playerNumber = 1;
     public float moveSpeed = 2;
 
-    private KeyCode upKey;
-    private KeyCode downKey;
-    private KeyCode rightKey;
-    private KeyCode leftKey;
-    private KeyCode placeKey;
-    private KeyCode triggerKey;
-    private KeyCode superKey;
+    string xAxis;
+    string yAxis;
+    string placeButton;
+    string triggerButton;
+    string superButton;
+
 
     private float chargeTimer = 0;
 
@@ -22,23 +21,19 @@ public class Player : MonoBehaviour {
     void Start () {
         if (playerNumber == 1)
         {
-            upKey = KeyCode.UpArrow;
-            downKey = KeyCode.DownArrow;
-            rightKey = KeyCode.RightArrow;
-            leftKey = KeyCode.LeftArrow;
-            placeKey = KeyCode.RightControl;
-            triggerKey = KeyCode.RightShift;
-            superKey = KeyCode.Return;
+            xAxis = "P1_Horizontal";
+            yAxis = "P1_Vertical";
+            placeButton = "P1_Place";
+            triggerButton = "P1_Trigger";
+            superButton = "P1_Super";
         }
-        if (playerNumber == 2)
+        else
         {
-            upKey = KeyCode.E;
-            downKey = KeyCode.D;
-            rightKey = KeyCode.F;
-            leftKey = KeyCode.S;
-            placeKey = KeyCode.LeftControl;
-            triggerKey = KeyCode.LeftShift;
-            superKey = KeyCode.Space;
+            xAxis = "P2_Horizontal";
+            yAxis = "P2_Vertical";
+            placeButton = "P2_Place";
+            triggerButton = "P2_Trigger";
+            superButton = "P2_Super";
         }
 
     }
@@ -46,60 +41,31 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        
+        
+        float horizontal = Input.GetAxis(xAxis);
+        float vertical = Input.GetAxis(yAxis) ;
+        bool placeDown = Input.GetButtonDown(placeButton);
+        bool placeUp = Input.GetButtonUp(placeButton);
+        bool trigger = Input.GetButtonDown(triggerButton);
+        bool super = Input.GetButtonDown(superButton);
 
         chargeTimer += Time.deltaTime;
 
-        if (Input.GetKey(upKey))
-        {
-            transform.localPosition += new Vector3(0, 1, 0) * moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(downKey))
-        {
-            transform.localPosition += new Vector3(0, -1, 0) * moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(rightKey))
-        {
-            transform.localPosition += new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKey(leftKey))
-        {
-            transform.localPosition += new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(placeKey))
+        transform.localPosition += new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
+        
+        if (placeDown)
         {
             chargeTimer = 0;
         }
 
-        Vector3 angle = new Vector3(0, 0, 0);
-        if (Input.GetKey(upKey))
-        {
-            angle += new Vector3(0, 1, 0);
-        }
-
-        if (Input.GetKey(downKey))
-        {
-            angle += new Vector3(0, -1, 0);
-        }
-
-        if (Input.GetKey(rightKey))
-        {
-            angle += new Vector3(1, 0, 0);
-        }
-
-        if (Input.GetKey(leftKey))
-        {
-            angle += new Vector3(-1, 0, 0);
-        }
+        Vector3 angle = new Vector3(horizontal, vertical, 0);
 
         Debug.Log(angle);
         var rad = Mathf.Atan2(angle.y, angle.x);
         Debug.Log(rad * 180 / Mathf.PI);
 
-        if (Input.GetKeyUp(placeKey))
+        if (placeUp)
         {
             Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI));
         }
