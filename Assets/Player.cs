@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     string yAxis;
     string placeButton;
     string triggerButton;
+    string pushButton;
     string superButton;
 
 
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     private GameObject triggerChargeIndicator;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
+    private float pushChargeTimer = 0;
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
@@ -56,6 +58,7 @@ public class Player : MonoBehaviour
             yAxis = "P1_Vertical";
             placeButton = "P1_Place";
             triggerButton = "P1_Trigger";
+            pushButton = "P1_Trigger";
             superButton = "P1_Super";
             currentAngle = new Vector3(1, 0);
             GetComponent<AudioSource>().pitch -= pitchModifier;
@@ -66,6 +69,7 @@ public class Player : MonoBehaviour
             yAxis = "P2_Vertical";
             placeButton = "P2_Place";
             triggerButton = "P2_Trigger";
+            pushButton = "P2_Push";
             superButton = "P2_Super";
             currentAngle = new Vector3(-1, 0);
             GetComponent<AudioSource>().pitch += pitchModifier;
@@ -94,13 +98,15 @@ public class Player : MonoBehaviour
         bool placeUp = Input.GetButtonUp(placeButton);
         bool IsTriggerButton = Input.GetButton(triggerButton);
         bool triggerUp = Input.GetButtonUp(triggerButton);
+        bool IsPushButton = Input.GetButton(pushButton);
+        bool pushUp = Input.GetButtonUp(pushButton);
         bool super = Input.GetButtonDown(superButton);
         
 
         Vector3 movement = new Vector3(horizontal, vertical, 0);
         if (movement.magnitude > 1) movement.Normalize();
 
-        if (!IsPlaceButton && !IsTriggerButton)
+        if (!IsPlaceButton && !IsTriggerButton && !IsPushButton)
         {
             transform.localPosition += movement * moveSpeed * Time.deltaTime;
             var pos = transform.localPosition;
@@ -171,8 +177,16 @@ public class Player : MonoBehaviour
             Destroy(chargeFx);
         }
 
+        if (pushUp && pushChargeTimer > 0)
+        {
+            //GetComponent<AudioSource>().PlayOneShot(triggerClip);
+            var push = Instantiate(Resources.Load("Push"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+            push.GetComponent<Push>().SetChargeFactor(pushChargeTimer);
+            Destroy(chargeFx);
+        }
 
-        if (IsPlaceButton && triggerChargeTimer == 0 && placeBallCount > 0)
+
+        if (IsPlaceButton && triggerChargeTimer == 0 && pushChargeTimer == 0 && placeBallCount > 0)
         {
             if (placeChargeTimer == 0)
             {
@@ -186,7 +200,7 @@ public class Player : MonoBehaviour
             placeChargeTimer = 0;
         }
 
-        if (IsTriggerButton && placeChargeTimer == 0 && triggerBallCount > 0)
+        if (IsTriggerButton && placeChargeTimer == 0 && pushChargeTimer == 0 && triggerBallCount > 0)
         {
             if (triggerChargeTimer == 0)
             {
@@ -199,7 +213,20 @@ public class Player : MonoBehaviour
             triggerChargeTimer = 0;
         }
 
-        
+        if (IsPushButton && placeChargeTimer == 0 && triggerChargeTimer == 0)
+        {
+            if (pushChargeTimer == 0)
+            {
+                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+            }
+            pushChargeTimer += Time.deltaTime;
+        }
+        else
+        {
+            pushChargeTimer = 0;
+        }
+
+
     }
 
     public void Damage()
