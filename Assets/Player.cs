@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
 
 
     public int playerNumber = 1;
@@ -12,38 +13,35 @@ public class Player : MonoBehaviour {
     public float ballDistBase = 2;
     public float ballDistFactor = 2;
 
-    private KeyCode upKey;
-    private KeyCode downKey;
-    private KeyCode rightKey;
-    private KeyCode leftKey;
-    private KeyCode placeKey;
-    private KeyCode triggerKey;
-    private KeyCode superKey;
+    string xAxis;
+    string yAxis;
+    string placeButton;
+    string triggerButton;
+    string superButton;
 
+
+    private float chargeTimer = 0;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (playerNumber == 1)
         {
-            upKey = KeyCode.UpArrow;
-            downKey = KeyCode.DownArrow;
-            rightKey = KeyCode.RightArrow;
-            leftKey = KeyCode.LeftArrow;
-            placeKey = KeyCode.RightControl;
-            triggerKey = KeyCode.RightShift;
-            superKey = KeyCode.Return;
+            xAxis = "P1_Horizontal";
+            yAxis = "P1_Vertical";
+            placeButton = "P1_Place";
+            triggerButton = "P1_Trigger";
+            superButton = "P1_Super";
         }
-        if (playerNumber == 2)
+        else
         {
-            upKey = KeyCode.E;
-            downKey = KeyCode.D;
-            rightKey = KeyCode.F;
-            leftKey = KeyCode.S;
-            placeKey = KeyCode.LeftControl;
-            triggerKey = KeyCode.LeftShift;
-            superKey = KeyCode.Space;
+            xAxis = "P2_Horizontal";
+            yAxis = "P2_Vertical";
+            placeButton = "P2_Place";
+            triggerButton = "P2_Trigger";
+            superButton = "P2_Super";
         }
 
     }
@@ -51,62 +49,34 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (placeChargeTimer == 0 && triggerChargeTimer == 0)
-        {
-            if (Input.GetKey(upKey))
-            {
-                transform.localPosition += new Vector3(0, 1, 0) * moveSpeed * Time.deltaTime;
-            }
 
-            if (Input.GetKey(downKey))
-            {
-                transform.localPosition += new Vector3(0, -1, 0) * moveSpeed * Time.deltaTime;
-            }
 
-            if (Input.GetKey(rightKey))
-            {
-                transform.localPosition += new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime;
-            }
+        float horizontal = Input.GetAxis(xAxis);
+        float vertical = Input.GetAxis(yAxis);
+        bool IsPlaceButton = Input.GetButton(placeButton);
+        bool placeUp = Input.GetButtonUp(placeButton);
+        bool IsTriggerButton = Input.GetButton(triggerButton);
+        bool triggerUp = Input.GetButtonUp(triggerButton);
+        bool super = Input.GetButtonDown(superButton);
 
-            if (Input.GetKey(leftKey))
-            {
-                transform.localPosition += new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime;
-            }
-        }
-        
+        chargeTimer += Time.deltaTime;
 
-        Vector3 angle = new Vector3(0, 0, 0);
-        if (Input.GetKey(upKey))
-        {
-            angle += new Vector3(0, 1, 0);
-        }
+        transform.localPosition += new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
 
-        if (Input.GetKey(downKey))
-        {
-            angle += new Vector3(0, -1, 0);
-        }
+        Vector3 angle = new Vector3(horizontal, vertical, 0);
 
-        if (Input.GetKey(rightKey))
-        {
-            angle += new Vector3(1, 0, 0);
-        }
-
-        if (Input.GetKey(leftKey))
-        {
-            angle += new Vector3(-1, 0, 0);
-        }
-        
+        Debug.Log(angle);
         var rad = Mathf.Atan2(angle.y, angle.x);
+        Debug.Log(rad * 180 / Mathf.PI);
 
-        if (Input.GetKeyUp(placeKey))
+        if (placeUp)
         {
             Debug.Log(placeChargeTimer);
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.speed = ballSpeedBase + ballSpeedFactor * placeChargeTimer;
         }
-
-        if (Input.GetKeyUp(triggerKey))
+        if (triggerUp)
         {
             Debug.Log(triggerChargeTimer);
             var target = angle.normalized * (ballDistBase + ballDistFactor * triggerChargeTimer);
@@ -114,7 +84,7 @@ public class Player : MonoBehaviour {
         }
 
 
-        if (Input.GetKey(placeKey) && triggerChargeTimer == 0)
+        if (IsPlaceButton && triggerChargeTimer == 0)
         {
             placeChargeTimer += Time.deltaTime;
         }
@@ -123,7 +93,7 @@ public class Player : MonoBehaviour {
             placeChargeTimer = 0;
         }
 
-        if (Input.GetKey(triggerKey) && placeChargeTimer == 0)
+        if (IsTriggerButton && placeChargeTimer == 0)
         {
             triggerChargeTimer += Time.deltaTime;
         }
