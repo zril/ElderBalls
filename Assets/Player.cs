@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -23,14 +24,20 @@ public class Player : MonoBehaviour
 
 
     private GameObject directionElement;
+    private GameObject placeChargeIndicator;
+    private GameObject triggerChargeIndicator;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
     private Vector3 currentAngle;
 
+    private int hp;
+    private int placeBallCount;
+
     // Use this for initialization
     void Start()
     {
-        Vector3 directionPosition;
+        hp = 51;
+        placeBallCount = 5;
         if (playerNumber == 1)
         {
             xAxis = "P1_Horizontal";
@@ -51,6 +58,8 @@ public class Player : MonoBehaviour
         }
 
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
+        placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
+        triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
 
     }
 
@@ -75,34 +84,48 @@ public class Player : MonoBehaviour
         {
             transform.localPosition += movement * moveSpeed * Time.deltaTime;
         }
-
+        
         if (horizontal != 0 || vertical != 0)
         {
             currentAngle = new Vector3(horizontal, vertical, 0).normalized;
         }
-        
-        directionElement.transform.position = transform.localPosition + (currentAngle / 2.0f);
 
-        Debug.Log(currentAngle);
+
         var rad = Mathf.Atan2(currentAngle.y, currentAngle.x);
-        Debug.Log(rad * 180 / Mathf.PI);
 
-        if (placeUp)
+        directionElement.transform.position = transform.localPosition + (currentAngle / 2.0f);
+        placeChargeIndicator.transform.position = transform.localPosition;
+        triggerChargeIndicator.transform.position = transform.localPosition;
+
+
+        float placeChargePct = Mathf.Min(ballSpeedFactor * placeChargeTimer, ballSpeedMax - ballSpeedBase) / (ballSpeedMax - ballSpeedBase);
+        placeChargeIndicator.transform.localScale = new Vector3(placeChargePct, placeChargePct, placeChargePct);
+        placeChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
+
+
+        float triggerChargePct = Mathf.Min(ballDistFactor * triggerChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
+        triggerChargeIndicator.transform.localScale = new Vector3(triggerChargePct, triggerChargePct, triggerChargePct);
+        triggerChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
+
+
+
+        if (placeUp && placeChargeTimer > 0)
         {
-            Debug.Log(placeChargeTimer);
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
+            ballscript.playerNumber = playerNumber;
+            RemoveBall();
         }
         if (triggerUp)
         {
-            Debug.Log(triggerChargeTimer);
             var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
-            var ball = Instantiate(Resources.Load("TriggerBall"), transform.position + target, Quaternion.identity) as GameObject;
+            var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
+            ball.GetComponent<TriggerBall>().SetTarget(transform.position + target);
         }
 
 
-        if (IsPlaceButton && triggerChargeTimer == 0)
+        if (IsPlaceButton && triggerChargeTimer == 0 && placeBallCount > 0)
         {
             placeChargeTimer += Time.deltaTime;
         }
@@ -121,5 +144,39 @@ public class Player : MonoBehaviour
         }
 
         
+    }
+
+    public void Damage()
+    {
+        hp--;
+        updateUI();
+    }
+
+    public void AddBall()
+    {
+        placeBallCount++;
+        updateUI();
+    }
+
+    public void RemoveBall()
+    {
+        placeBallCount--;
+        updateUI();
+    }
+
+    private void updateUI()
+    {
+        var canvas = GameObject.FindGameObjectWithTag("Canvas");
+        var ui = canvas.transform.FindChild("Player" + playerNumber);
+        var uihp = ui.transform.FindChild("Hp");
+        var text = uihp.GetComponentInChildren<Text>();
+        text.text = "" + hp;
+
+        var uiballs = ui.transform.FindChild("Balls");
+        for (int i = 0; i < 5; i++)
+        {
+            var ball = uiballs.FindChild("Ball" + (i + 1));
+            ball.gameObject.SetActive(i < placeBallCount);
+        }
     }
 }

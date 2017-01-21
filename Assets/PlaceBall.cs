@@ -12,6 +12,8 @@ public class PlaceBall : MonoBehaviour {
     public float triggerTime = 0.5f;
     public float ballBounceModifier = 2.0f;
 
+    public int playerNumber = 1;
+
 
     private float triggerTimer;
     private bool trigger = false;
@@ -51,6 +53,15 @@ public class PlaceBall : MonoBehaviour {
 
     private void Detonate()
     {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject player in players)
+        {
+            var playerScript = player.GetComponent<Player>();
+            if (player.GetComponent<Player>().playerNumber == playerNumber)
+            {
+                playerScript.AddBall();
+            }
+        }
         Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
         GameObject.Destroy(gameObject);
     }

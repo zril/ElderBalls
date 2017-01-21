@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - PlaceBall
   - TriggerBall
+  - Goal
+  - Canvas
   layers:
   - Default
   - TransparentFX
