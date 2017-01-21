@@ -64,7 +64,9 @@ public class TriggerBall : MonoBehaviour {
         var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
         foreach(GameObject ball in balls)
         {
-            if (Vector3.Distance(ball.transform.position, transform.position) < triggerRadius)
+            var p1 = new Vector2(ball.transform.position.x, ball.transform.position.y);
+            var p2 = new Vector2(transform.position.x, transform.position.y);
+            if (Vector3.Distance(p1, p2) < triggerRadius)
             {
                 ball.GetComponent<PlaceBall>().Trigger();
             }
