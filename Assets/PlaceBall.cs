@@ -14,6 +14,7 @@ public class PlaceBall : MonoBehaviour {
     public float wallBounceModifier = 2.0f;
     public float goalBounceModifier = 2.0f;
     public float maxSpeed = 20.0f;
+    public float audioPitchRange = 0.2f;
 
 
     public int playerNumber = 1;
@@ -65,7 +66,7 @@ public class PlaceBall : MonoBehaviour {
         if (alive)
         {
             alive = false;
-            GetComponent<AudioSource>().pitch += (Random.value - 0.5f) / 7.0f;
+            GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
             GetComponent<AudioSource>().Play();
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
