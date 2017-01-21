@@ -38,13 +38,19 @@ public class Arena : MonoBehaviour {
         Destroy(spawnGoal2);
         Destroy(spawnMoveLimit1);
         Destroy(spawnMoveLimit2);
-
-        //GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
-        //GetComponent<AudioSource>().Play();
+        
+        GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/track" + Mathf.CeilToInt(Random.value * 5));
+        GetComponent<AudioSource>().Play();
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            GetComponent<AudioSource>().Stop();
+            Application.LoadLevel("main");
+            //GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/track" + Mathf.CeilToInt(Random.value * 5));
+            //GetComponent<AudioSource>().Play();
+        }
     }
 }
