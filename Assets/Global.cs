@@ -6,5 +6,5 @@ using System.Text;
 
 static class Global
 {
-    public static string arenaName = "map14";
+    public static string arenaName = "map19b";
 }

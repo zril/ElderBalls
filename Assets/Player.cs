@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
+    private AudioClip gameOverClip;
+
     private GameObject chargeFx;
 
     private int hp;
@@ -66,6 +68,7 @@ public class Player : MonoBehaviour
         }
         placeClip = Resources.Load<AudioClip>("Sounds/Throw1 - Dark Short");
         triggerClip = Resources.Load<AudioClip>("Sounds/Throw2 - Dark Short");
+        gameOverClip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
@@ -198,7 +201,18 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         hp--;
+        CheckGameOver();
         updateUI();
+    }
+
+    public void CheckGameOver()
+    {
+        if (hp < 0)
+        {
+            GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+        }
+        
+        //traitement
     }
 
     public void AddPlaceBall()

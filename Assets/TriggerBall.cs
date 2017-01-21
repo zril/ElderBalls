@@ -46,6 +46,7 @@ public class TriggerBall : MonoBehaviour {
             triggerTimer -= Time.deltaTime;
             if (triggerTimer < 0)
             {
+                GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/DetonatorLand"));
                 GameObject.Destroy(gameObject);
                 Detonate();
             }
