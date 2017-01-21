@@ -270,8 +270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 0
   triggerTime: 1
-  ballBounceModifier: 1
-  wallBounceModifier: 1.5
+  ballBounceModifier: 1.4
+  wallBounceModifier: 1.1
   goalBounceModifier: 2
   maxSpeed: 10
   playerNumber: 1
