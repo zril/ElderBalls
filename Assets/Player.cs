@@ -10,8 +10,10 @@ public class Player : MonoBehaviour
     public float moveSpeed = 2;
     public float ballSpeedBase = 2;
     public float ballSpeedFactor = 2;
+    public float ballSpeedMax = 10;
     public float ballDistBase = 2;
     public float ballDistFactor = 2;
+    public float ballDistMax = 10;
 
     string xAxis;
     string yAxis;
@@ -77,12 +79,12 @@ public class Player : MonoBehaviour
             Debug.Log(placeChargeTimer);
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
-            ballscript.startSpeed = ballSpeedBase + ballSpeedFactor * placeChargeTimer;
+            ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
         }
         if (triggerUp)
         {
             Debug.Log(triggerChargeTimer);
-            var target = angle.normalized * (ballDistBase + ballDistFactor * triggerChargeTimer);
+            var target = angle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
             var ball = Instantiate(Resources.Load("TriggerBall"), transform.position + target, Quaternion.identity) as GameObject;
         }
 
