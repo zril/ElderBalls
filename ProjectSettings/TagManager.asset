@@ -10,6 +10,11 @@ TagManager:
   - Goal
   - Canvas
   - GameZone
+  - Arena
+  - SpawnPlayer1
+  - SpawnPlayer2
+  - SpawnGoal1
+  - SpawnGoal2
   layers:
   - Default
   - TransparentFX
