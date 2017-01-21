@@ -83,7 +83,9 @@ public class PlaceBall : MonoBehaviour {
                 }
             }
             Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
-            var crat = Instantiate(Resources.Load("Cratere"), transform.position, Quaternion.identity);
+            Vector3 cratpos = transform.position;
+            cratpos.z--;
+            var crat = Instantiate(Resources.Load("Cratere"), cratpos, Quaternion.identity);
             Destroy(crat, 5f);
             var fx = Instantiate(Resources.Load("PlaceBall/DetonateEffect"), transform.position, Quaternion.identity);
             Destroy(fx, 0.05f);
