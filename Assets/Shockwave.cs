@@ -13,6 +13,7 @@ public class Shockwave : MonoBehaviour {
         {
             parts.Add(Instantiate(Resources.Load("ShockwavePart"), transform.position, Quaternion.Euler(0, 0, i)) as GameObject);
         }
+        Destroy(gameObject, 1f);
     }
 	
 	// Update is called once per frame

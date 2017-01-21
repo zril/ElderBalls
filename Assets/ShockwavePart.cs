@@ -37,6 +37,11 @@ public class ShockwavePart : MonoBehaviour
         {
             other.GetComponent<PlaceBall>().Trigger();
         }
+        else if (other.gameObject.tag == "Goal")
+        {
+            Kill();
+            other.GetComponent<Goal>().Damage();
+        }
     }
 
     public void Kill()

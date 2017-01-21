@@ -22,9 +22,13 @@ public class Player : MonoBehaviour
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
 
+    private int hp;
+
     // Use this for initialization
     void Start()
     {
+        hp = 51;
+
         if (playerNumber == 1)
         {
             xAxis = "P1_Horizontal";
@@ -67,23 +71,20 @@ public class Player : MonoBehaviour
         }
 
         Vector3 angle = new Vector3(horizontal, vertical, 0).normalized;
-
-        Debug.Log(angle);
+        
         var rad = Mathf.Atan2(angle.y, angle.x);
-        Debug.Log(rad * 180 / Mathf.PI);
 
         if (placeUp)
         {
-            Debug.Log(placeChargeTimer);
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = ballSpeedBase + ballSpeedFactor * placeChargeTimer;
         }
         if (triggerUp)
         {
-            Debug.Log(triggerChargeTimer);
             var target = angle.normalized * (ballDistBase + ballDistFactor * triggerChargeTimer);
-            var ball = Instantiate(Resources.Load("TriggerBall"), transform.position + target, Quaternion.identity) as GameObject;
+            var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
+            ball.GetComponent<TriggerBall>().SetTarget(transform.position + target);
         }
 
 
@@ -104,5 +105,16 @@ public class Player : MonoBehaviour
         {
             triggerChargeTimer = 0;
         }
+    }
+
+    public void Damage()
+    {
+        hp--;
+        Debug.Log(hp);
+    }
+
+    public int GetHp()
+    {
+        return hp;
     }
 }
