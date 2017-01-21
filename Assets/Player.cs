@@ -265,6 +265,9 @@ public class Player : MonoBehaviour
         var uihp = ui.transform.FindChild("Hp");
         var text = uihp.GetComponentInChildren<Text>();
         text.text = "" + hp;
+        var uisuper = ui.transform.FindChild("Super");
+        var textsuper = uisuper.GetComponentInChildren<Text>();
+        textsuper.text = "" + super + " / " + maxSuper;
 
         var uiballs = ui.transform.FindChild("Balls");
         for (int i = 0; i < 5; i++)

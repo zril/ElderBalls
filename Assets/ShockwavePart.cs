@@ -47,6 +47,7 @@ public class ShockwavePart : MonoBehaviour
             other.GetComponent<Goal>().Damage();
         } else if (other.gameObject.tag == "Player")
         {
+            other.GetComponent<Player>().addSuper(other.GetComponent<Player>().damageBlockSuperIncr);
             Kill();
         }
     }

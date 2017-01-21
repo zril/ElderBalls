@@ -57,12 +57,13 @@ public class TriggerBall : MonoBehaviour {
     private void Detonate()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
+        Player targetPlayer = null;
         foreach (GameObject player in players)
         {
             var playerScript = player.GetComponent<Player>();
             if (player.GetComponent<Player>().playerNumber == playerNumber)
             {
-                playerScript.addSuper(triggerSuperIncr);
+                targetPlayer = playerScript;
                 playerScript.AddTriggerBall();
             }
         }
@@ -74,6 +75,10 @@ public class TriggerBall : MonoBehaviour {
             var p2 = new Vector2(transform.position.x, transform.position.y);
             if (Vector3.Distance(p1, p2) < triggerRadius)
             {
+                if (targetPlayer != null)
+                {
+                    targetPlayer.addSuper(triggerSuperIncr);
+                }
                 ball.GetComponent<PlaceBall>().Trigger();
             }
         }
