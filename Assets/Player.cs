@@ -20,13 +20,17 @@ public class Player : MonoBehaviour
     string placeButton;
     string triggerButton;
     string superButton;
-    
+
+
+    private GameObject directionElement;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
+    private Vector3 currentAngle;
 
     // Use this for initialization
     void Start()
     {
+        Vector3 directionPosition;
         if (playerNumber == 1)
         {
             xAxis = "P1_Horizontal";
@@ -34,6 +38,7 @@ public class Player : MonoBehaviour
             placeButton = "P1_Place";
             triggerButton = "P1_Trigger";
             superButton = "P1_Super";
+            currentAngle = new Vector3(1, 0);
         }
         else
         {
@@ -42,7 +47,10 @@ public class Player : MonoBehaviour
             placeButton = "P2_Place";
             triggerButton = "P2_Trigger";
             superButton = "P2_Super";
+            currentAngle = new Vector3(-1, 0);
         }
+
+        directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
 
     }
 
@@ -68,10 +76,15 @@ public class Player : MonoBehaviour
             transform.localPosition += movement * moveSpeed * Time.deltaTime;
         }
 
-        Vector3 angle = new Vector3(horizontal, vertical, 0).normalized;
+        if (horizontal != 0 || vertical != 0)
+        {
+            currentAngle = new Vector3(horizontal, vertical, 0).normalized;
+        }
+        
+        directionElement.transform.position = transform.localPosition + (currentAngle / 2.0f);
 
-        Debug.Log(angle);
-        var rad = Mathf.Atan2(angle.y, angle.x);
+        Debug.Log(currentAngle);
+        var rad = Mathf.Atan2(currentAngle.y, currentAngle.x);
         Debug.Log(rad * 180 / Mathf.PI);
 
         if (placeUp)
@@ -84,7 +97,7 @@ public class Player : MonoBehaviour
         if (triggerUp)
         {
             Debug.Log(triggerChargeTimer);
-            var target = angle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
+            var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
             var ball = Instantiate(Resources.Load("TriggerBall"), transform.position + target, Quaternion.identity) as GameObject;
         }
 
@@ -106,5 +119,7 @@ public class Player : MonoBehaviour
         {
             triggerChargeTimer = 0;
         }
+
+        
     }
 }
