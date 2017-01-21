@@ -15,6 +15,9 @@ TagManager:
   - SpawnPlayer2
   - SpawnGoal1
   - SpawnGoal2
+  - MoveLimit1
+  - MoveLimit2
+  - MoveLimit
   layers:
   - Default
   - TransparentFX
