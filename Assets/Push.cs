@@ -24,7 +24,7 @@ public class Push : MonoBehaviour {
             if (Vector3.Distance(p1, p2) < radius && delta < angle / 2)
             {
                 Vector3 push = transform.up * (basePower + chargeFactor);
-                ball.GetComponent < Rigidbody2D > ().velocity += new Vector2(push.x, push.y);
+                ball.GetComponent < Rigidbody2D > ().velocity = new Vector2(push.x, push.y);
             }
         }
 

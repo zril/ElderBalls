@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 1.5
   angle: 45
-  basePower: 2
+  basePower: 4
   chargeModifier: 4
