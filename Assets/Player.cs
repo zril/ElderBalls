@@ -209,7 +209,18 @@ public class Player : MonoBehaviour
     {
         if (hp < 0)
         {
+            var canvas = GameObject.FindGameObjectWithTag("Canvas");
+            var gameOverText = canvas.transform.FindChild("GameOver");
+            var visibleText = gameOverText.GetComponentInChildren<Text>();
             GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+            if (playerNumber == 1)
+            {
+                visibleText.text = "Player 2 wins !";
+            }
+            else
+            {
+                visibleText.text = "Player 1 wins !";
+            }
         }
         
         //traitement
