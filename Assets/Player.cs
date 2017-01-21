@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
-    
+    private GameObject chargeFx;
 
     private int hp;
     private int placeBallCount;
@@ -95,22 +95,25 @@ public class Player : MonoBehaviour
 
         if (!IsPlaceButton && !IsTriggerButton)
         {
-            float maxX = 0;
-            float minX = -6;
-            if (playerNumber == 2)
-            {
-                maxX = 6;
-                minX = 0;
-            }
             transform.localPosition += movement * moveSpeed * Time.deltaTime;
             var pos = transform.localPosition;
-            if (transform.localPosition.x > maxX)
+
+            var limits = GameObject.FindGameObjectsWithTag("MoveLimit");
+            foreach (GameObject limit in limits)
             {
-                transform.localPosition = new Vector3(maxX, pos.y, pos.z);
-            }
-            if (transform.localPosition.x < minX)
-            {
-                transform.localPosition = new Vector3(minX, pos.y, pos.z);
+                if (limit.GetComponent<MoveLimit>().playerNumber == playerNumber)
+                {
+                    var limitx = limit.transform.position.x;
+                    if (playerNumber == 1 && transform.localPosition.x > limitx)
+                    {
+                        transform.localPosition = new Vector3(limitx, pos.y, pos.z);
+                    }
+
+                    if (playerNumber == 2 && transform.localPosition.x < limitx)
+                    {
+                        transform.localPosition = new Vector3(limitx, pos.y, pos.z);
+                    }
+                }
             }
         }
         
@@ -147,6 +150,7 @@ public class Player : MonoBehaviour
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
             ballscript.playerNumber = playerNumber;
             RemovePlaceBall();
+            Destroy(chargeFx);
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
@@ -157,12 +161,18 @@ public class Player : MonoBehaviour
             ballscript.SetTarget(transform.position + target);
             ballscript.playerNumber = playerNumber;
             RemoveTriggerBall();
+            Destroy(chargeFx);
         }
 
 
         if (IsPlaceButton && triggerChargeTimer == 0 && placeBallCount > 0)
         {
+            if (placeChargeTimer == 0)
+            {
+                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+            }
             placeChargeTimer += Time.deltaTime;
+            
         }
         else
         {
@@ -171,6 +181,10 @@ public class Player : MonoBehaviour
 
         if (IsTriggerButton && placeChargeTimer == 0 && triggerBallCount > 0)
         {
+            if (triggerChargeTimer == 0)
+            {
+                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+            }
             triggerChargeTimer += Time.deltaTime;
         }
         else
