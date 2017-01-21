@@ -28,14 +28,16 @@ public class Arena : MonoBehaviour {
         var goal2 = Instantiate(Resources.Load("Goal"), spawnGoal2.transform.position, Quaternion.identity) as GameObject;
         goal2.GetComponent<Goal>().playerNumber = 2;
         var moveLimit1 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit1.transform.position, Quaternion.identity) as GameObject;
-        moveLimit1.GetComponent<Goal>().playerNumber = 1;
+        moveLimit1.GetComponent<MoveLimit>().playerNumber = 1;
         var moveLimit2 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit2.transform.position, Quaternion.identity) as GameObject;
-        moveLimit2.GetComponent<Goal>().playerNumber = 2;
+        moveLimit2.GetComponent<MoveLimit>().playerNumber = 2;
 
         Destroy(spawnPlayer1);
         Destroy(spawnPlayer2);
         Destroy(spawnGoal1);
         Destroy(spawnGoal2);
+        Destroy(spawnMoveLimit1);
+        Destroy(spawnMoveLimit2);
     }
 	
 	// Update is called once per frame
