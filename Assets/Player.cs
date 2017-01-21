@@ -61,9 +61,12 @@ public class Player : MonoBehaviour
 
         chargeTimer += Time.deltaTime;
 
-        transform.localPosition += new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
+        Vector3 movement = new Vector3(horizontal, vertical, 0);
+        if (movement.magnitude > 1) movement.Normalize();
 
-        Vector3 angle = new Vector3(horizontal, vertical, 0);
+        transform.localPosition += movement * moveSpeed * Time.deltaTime;
+
+        Vector3 angle = new Vector3(horizontal, vertical, 0).normalized;
 
         Debug.Log(angle);
         var rad = Mathf.Atan2(angle.y, angle.x);
