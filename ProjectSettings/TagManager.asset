@@ -9,6 +9,7 @@ TagManager:
   - TriggerBall
   - Goal
   - Canvas
+  - GameZone
   layers:
   - Default
   - TransparentFX

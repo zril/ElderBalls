@@ -13,6 +13,7 @@ public class PlaceBall : MonoBehaviour {
     public float ballBounceModifier = 2.0f;
     public float wallBounceModifier = 2.0f;
     public float goalBounceModifier = 2.0f;
+    public float maxSpeed = 20.0f;
 
     public int playerNumber = 1;
 
@@ -36,7 +37,10 @@ public class PlaceBall : MonoBehaviour {
             startSpeed = 0;
         }
         */
-
+        if(GetComponent<Rigidbody2D>().velocity.magnitude > maxSpeed)
+        {
+            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * maxSpeed;
+        }
 
         if (trigger)
         {
@@ -86,6 +90,16 @@ public class PlaceBall : MonoBehaviour {
         else if (other.gameObject.tag == "Goal")
         {
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * goalBounceModifier;
+        }    
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.gameObject.tag == "GameZone")
+        {
+            Detonate();
         }
     }
+
+    
 }
