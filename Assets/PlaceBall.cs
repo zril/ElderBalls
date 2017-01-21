@@ -14,10 +14,12 @@ public class PlaceBall : MonoBehaviour {
     public float wallBounceModifier = 2.0f;
     public float goalBounceModifier = 2.0f;
     public float maxSpeed = 20.0f;
+    public float audioPitchRange = 0.2f;
+
 
     public int playerNumber = 1;
 
-
+    private bool alive = true;
     private float triggerTimer;
     private bool trigger = false;
 
@@ -61,21 +63,37 @@ public class PlaceBall : MonoBehaviour {
 
     private void Detonate()
     {
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject player in players)
+        if (alive)
         {
-            var playerScript = player.GetComponent<Player>();
-            if (player.GetComponent<Player>().playerNumber == playerNumber)
+            alive = false;
+            GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
+            GetComponent<AudioSource>().Play();
+            var players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
             {
-                playerScript.AddPlaceBall();
+                var playerScript = player.GetComponent<Player>();
+                if (player.GetComponent<Player>().playerNumber == playerNumber)
+                {
+                    playerScript.AddPlaceBall();
+                }
+            }
+            Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
+            var crat = Instantiate(Resources.Load("Cratere"), transform.position, Quaternion.identity);
+            Destroy(crat, 5f);
+            var fx = Instantiate(Resources.Load("PlaceBall/DetonateEffect"), transform.position, Quaternion.identity);
+            Destroy(fx, 0.05f);
+            Destroy(GetComponent<CircleCollider2D>());
+            Destroy(GetComponent<SpriteRenderer>());
+        }
+        else
+        {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GameObject.Destroy(gameObject);
+                
             }
         }
-        Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
-        var crat = Instantiate(Resources.Load("Cratere"), transform.position, Quaternion.identity);
-        Destroy(crat, 5f);
-        GameObject.Destroy(gameObject);
-        var fx = Instantiate(Resources.Load("PlaceBall/DetonateEffect"), transform.position, Quaternion.identity);
-        Destroy(fx, 0.05f);
+
     }
 
     void OnCollisionExit2D(Collision2D other)
