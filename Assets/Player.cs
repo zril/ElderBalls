@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -25,11 +26,13 @@ public class Player : MonoBehaviour
     private float triggerChargeTimer = 0;
 
     private int hp;
+    private int placeBallCount;
 
     // Use this for initialization
     void Start()
     {
         hp = 51;
+        placeBallCount = 5;
 
         if (playerNumber == 1)
         {
@@ -76,11 +79,13 @@ public class Player : MonoBehaviour
         
         var rad = Mathf.Atan2(angle.y, angle.x);
 
-        if (placeUp)
+        if (placeUp && placeChargeTimer > 0)
         {
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
+            ballscript.playerNumber = playerNumber;
+            RemoveBall();
         }
         if (triggerUp)
         {
@@ -90,7 +95,7 @@ public class Player : MonoBehaviour
         }
 
 
-        if (IsPlaceButton && triggerChargeTimer == 0)
+        if (IsPlaceButton && triggerChargeTimer == 0 && placeBallCount > 0)
         {
             placeChargeTimer += Time.deltaTime;
         }
@@ -112,11 +117,34 @@ public class Player : MonoBehaviour
     public void Damage()
     {
         hp--;
-        Debug.Log(hp);
+        updateUI();
     }
 
-    public int GetHp()
+    public void AddBall()
     {
-        return hp;
+        placeBallCount++;
+        updateUI();
+    }
+
+    public void RemoveBall()
+    {
+        placeBallCount--;
+        updateUI();
+    }
+
+    private void updateUI()
+    {
+        var canvas = GameObject.FindGameObjectWithTag("Canvas");
+        var ui = canvas.transform.FindChild("Player" + playerNumber);
+        var uihp = ui.transform.FindChild("Hp");
+        var text = uihp.GetComponentInChildren<Text>();
+        text.text = "" + hp;
+
+        var uiballs = ui.transform.FindChild("Balls");
+        for (int i = 0; i < 5; i++)
+        {
+            var ball = uiballs.FindChild("Ball" + (i + 1));
+            ball.gameObject.SetActive(i < placeBallCount);
+        }
     }
 }
