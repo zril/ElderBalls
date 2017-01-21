@@ -24,12 +24,14 @@ public class PlaceBall : MonoBehaviour {
     private float triggerTimer;
     private bool trigger = false;
     private AudioClip collideClip;
+    private AudioClip detonateClip;
 
     // Use this for initialization
     void Start () {
         triggerTimer = 0;
         transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed;
         collideClip = Resources.Load<AudioClip>("Sounds/BallCollision");
+        detonateClip = Resources.Load<AudioClip>("Sounds/Boom1 - Dark");
     }
 	
 	// Update is called once per frame
@@ -70,7 +72,7 @@ public class PlaceBall : MonoBehaviour {
         {
             alive = false;
             GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().PlayOneShot(detonateClip);
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
             {
