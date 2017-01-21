@@ -88,9 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f1dd35d17d2d84292e6bef8018938d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
   startSpeed: 0
   triggerTime: 0.5
+  ballBounceModifier: 1.25
 --- !u!212 &212335750387303986
 SpriteRenderer:
   m_ObjectHideFlags: 1
