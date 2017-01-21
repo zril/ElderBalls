@@ -111,6 +111,7 @@ MonoBehaviour:
   ballBounceModifier: 1
   wallBounceModifier: 1.5
   goalBounceModifier: 2
+  maxSpeed: 10
   playerNumber: 1
 --- !u!212 &212335750387303986
 SpriteRenderer:
