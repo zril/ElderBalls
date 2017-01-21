@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
     private Vector3 currentAngle;
+    private AudioSource throwSource;
 
     private int hp;
     private int placeBallCount;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         hp = 51;
         placeBallCount = 5;
         triggerBallCount = 1;
+        var AudioSources = GetComponents<AudioSource>();
         if (playerNumber == 1)
         {
             xAxis = "P1_Horizontal";
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
             triggerButton = "P1_Trigger";
             superButton = "P1_Super";
             currentAngle = new Vector3(1, 0);
+            throwSource = AudioSources[0];
         }
         else
         {
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
             triggerButton = "P2_Trigger";
             superButton = "P2_Super";
             currentAngle = new Vector3(-1, 0);
+            throwSource = AudioSources[1];
         }
 
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
@@ -139,6 +143,7 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
+            throwSource.Play();
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
@@ -147,6 +152,7 @@ public class Player : MonoBehaviour
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
+            throwSource.Play();
             var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
             var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
             var ballscript = ball.GetComponent<TriggerBall>();

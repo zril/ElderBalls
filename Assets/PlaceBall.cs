@@ -59,6 +59,7 @@ public class PlaceBall : MonoBehaviour {
 
     private void Detonate()
     {
+        GetComponent<AudioSource>().Play();
         var players = GameObject.FindGameObjectsWithTag("Player");
         foreach(GameObject player in players)
         {
