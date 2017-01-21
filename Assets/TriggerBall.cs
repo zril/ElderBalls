@@ -6,15 +6,18 @@ public class TriggerBall : MonoBehaviour {
 
     public float triggerRadius = 1f;
     public float throwTime = 1f;
+    public float triggerTime = 0.2f;
     
     private float throwTimer;
     private Vector3 originPos;
     private Vector3 targetPos;
 
+    private float triggerTimer;
+
     // Use this for initialization
     void Start () {
         originPos = transform.position;
-
+        triggerTimer = triggerTime;
         throwTimer = throwTime;
     }
 	
@@ -35,8 +38,12 @@ public class TriggerBall : MonoBehaviour {
             transform.localScale = Vector3.one;
             transform.position = targetPos;
 
-            GameObject.Destroy(gameObject);
-            Detonate();
+            triggerTimer -= Time.deltaTime;
+            if (triggerTimer < 0)
+            {
+                GameObject.Destroy(gameObject);
+                Detonate();
+            }
         }
     }
 
