@@ -6,6 +6,7 @@ public class ShockwavePart : MonoBehaviour
 {
     public float speed = 2;
     public float lifeTime = 0.5f;
+    public float pushSpeed = 0.1f;
 
     private float timer;
 
@@ -36,6 +37,9 @@ public class ShockwavePart : MonoBehaviour
         } else if (other.gameObject.tag == "PlaceBall")
         {
             other.GetComponent<PlaceBall>().Trigger();
+            var pushtmp = pushSpeed * transform.up;
+            var push = new Vector2(pushtmp.x, pushtmp.y);
+            other.transform.GetComponent<Rigidbody2D>().velocity += push;
         }
         else if (other.gameObject.tag == "Goal")
         {
