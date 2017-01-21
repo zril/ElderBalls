@@ -23,6 +23,11 @@ public class Arena : MonoBehaviour {
         goal1.GetComponent<Goal>().playerNumber = 1;
         var goal2 = Instantiate(Resources.Load("Goal"), spawnGoal2.transform.position, Quaternion.identity) as GameObject;
         goal2.GetComponent<Goal>().playerNumber = 2;
+
+        Destroy(spawnPlayer1);
+        Destroy(spawnPlayer2);
+        Destroy(spawnGoal1);
+        Destroy(spawnGoal2);
     }
 	
 	// Update is called once per frame
