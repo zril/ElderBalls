@@ -32,12 +32,14 @@ public class Player : MonoBehaviour
 
     private int hp;
     private int placeBallCount;
+    private int triggerBallCount;
 
     // Use this for initialization
     void Start()
     {
         hp = 51;
         placeBallCount = 5;
+        triggerBallCount = 1;
         if (playerNumber == 1)
         {
             xAxis = "P1_Horizontal";
@@ -141,13 +143,16 @@ public class Player : MonoBehaviour
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
             ballscript.playerNumber = playerNumber;
-            RemoveBall();
+            RemovePlaceBall();
         }
-        if (triggerUp)
+        if (triggerUp && triggerChargeTimer > 0)
         {
             var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
             var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
-            ball.GetComponent<TriggerBall>().SetTarget(transform.position + target);
+            var ballscript = ball.GetComponent<TriggerBall>();
+            ballscript.SetTarget(transform.position + target);
+            ballscript.playerNumber = playerNumber;
+            RemoveTriggerBall();
         }
 
 
@@ -160,7 +165,7 @@ public class Player : MonoBehaviour
             placeChargeTimer = 0;
         }
 
-        if (IsTriggerButton && placeChargeTimer == 0)
+        if (IsTriggerButton && placeChargeTimer == 0 && triggerBallCount > 0)
         {
             triggerChargeTimer += Time.deltaTime;
         }
@@ -178,16 +183,26 @@ public class Player : MonoBehaviour
         updateUI();
     }
 
-    public void AddBall()
+    public void AddPlaceBall()
     {
         placeBallCount++;
         updateUI();
     }
 
-    public void RemoveBall()
+    public void RemovePlaceBall()
     {
         placeBallCount--;
         updateUI();
+    }
+
+    public void AddTriggerBall()
+    {
+        triggerBallCount++;
+    }
+
+    public void RemoveTriggerBall()
+    {
+        triggerBallCount--;
     }
 
     private void updateUI()

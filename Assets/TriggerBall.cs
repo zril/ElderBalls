@@ -7,6 +7,8 @@ public class TriggerBall : MonoBehaviour {
     public float triggerRadius = 1f;
     public float throwTime = 1f;
     public float triggerTime = 0.2f;
+
+    public int playerNumber = 1;
     
     private float throwTimer;
     private Vector3 originPos;
@@ -49,8 +51,17 @@ public class TriggerBall : MonoBehaviour {
 
     private void Detonate()
     {
-        var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            var playerScript = player.GetComponent<Player>();
+            if (player.GetComponent<Player>().playerNumber == playerNumber)
+            {
+                playerScript.AddTriggerBall();
+            }
+        }
 
+        var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
         foreach(GameObject ball in balls)
         {
             if (Vector3.Distance(ball.transform.position, transform.position) < triggerRadius)

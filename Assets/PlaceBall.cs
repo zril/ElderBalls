@@ -61,7 +61,7 @@ public class PlaceBall : MonoBehaviour {
             var playerScript = player.GetComponent<Player>();
             if (player.GetComponent<Player>().playerNumber == playerNumber)
             {
-                playerScript.AddBall();
+                playerScript.AddPlaceBall();
             }
         }
         Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
