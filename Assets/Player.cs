@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
-            var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+            var ball = Instantiate(Resources.Load("PlaceBall"), transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
             ballscript.playerNumber = playerNumber;
