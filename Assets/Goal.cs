@@ -36,7 +36,7 @@ public class Goal : MonoBehaviour {
             if (playerScript.playerNumber == playerNumber)
             {
                 playerScript.Damage();
-                playerScript.addSuper(superIncr)
+                playerScript.addSuper(superIncr);
             }
         }
     }
