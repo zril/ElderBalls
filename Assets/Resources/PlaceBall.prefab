@@ -90,7 +90,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 0
   triggerTime: 1
-  ballBounceModifier: 1.25
+  ballBounceModifier: 1
+  wallBounceModifier: 1.5
+  goalBounceModifier: 2
   playerNumber: 1
 --- !u!212 &212335750387303986
 SpriteRenderer:

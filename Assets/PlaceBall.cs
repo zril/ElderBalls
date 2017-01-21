@@ -11,6 +11,8 @@ public class PlaceBall : MonoBehaviour {
     //public float frictionBase = 0.5f;
     public float triggerTime = 0.5f;
     public float ballBounceModifier = 2.0f;
+    public float wallBounceModifier = 2.0f;
+    public float goalBounceModifier = 2.0f;
 
     public int playerNumber = 1;
 
@@ -68,14 +70,22 @@ public class PlaceBall : MonoBehaviour {
         Destroy(fx, 0.05f);
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag == "PlaceBall")
         {
             if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
             {
-                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity * ballBounceModifier;
+                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * ballBounceModifier;
             }
+        }
+        else if (other.gameObject.tag == "Wall")
+        {
+            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * wallBounceModifier;
+        }
+        else if (other.gameObject.tag == "Goal")
+        {
+            GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * goalBounceModifier;
         }
     }
 }

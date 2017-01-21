@@ -70,10 +70,10 @@ MonoBehaviour:
   playerNumber: 0
   moveSpeed: 2
   ballSpeedBase: 2
-  ballSpeedFactor: 2
+  ballSpeedFactor: 5
   ballSpeedMax: 10
-  ballDistBase: 2
-  ballDistFactor: 2
+  ballDistBase: 0
+  ballDistFactor: 5
   ballDistMax: 10
 --- !u!212 &212290978161503206
 SpriteRenderer:
