@@ -64,6 +64,8 @@ public class PlaceBall : MonoBehaviour {
         }
         Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
         GameObject.Destroy(gameObject);
+        var fx = Instantiate(Resources.Load("DetonateEffect"), transform.position, Quaternion.identity);
+        Destroy(fx, 0.05f);
     }
 
     void OnCollisionEnter2D(Collision2D other)
