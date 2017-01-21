@@ -5,11 +5,19 @@ using UnityEngine;
 public class Goal : MonoBehaviour {
 
     public int playerNumber = 1;
+    public float pitchModificer = 0.1f;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+		if(playerNumber ==1)
+        {
+            GetComponent<AudioSource>().pitch -= pitchModificer;
+        }
+        else
+        {
+            GetComponent<AudioSource>().pitch += pitchModificer;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,6 +26,7 @@ public class Goal : MonoBehaviour {
 
     public void Damage()
     {
+        GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/GoalHit"));
         var players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach(GameObject player in players)

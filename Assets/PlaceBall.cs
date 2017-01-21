@@ -15,6 +15,7 @@ public class PlaceBall : MonoBehaviour {
     public float goalBounceModifier = 2.0f;
     public float maxSpeed = 20.0f;
     public float audioPitchRange = 0.2f;
+    
 
 
     public int playerNumber = 1;
@@ -22,11 +23,15 @@ public class PlaceBall : MonoBehaviour {
     private bool alive = true;
     private float triggerTimer;
     private bool trigger = false;
+    private AudioClip collideClip;
+    private AudioClip detonateClip;
 
     // Use this for initialization
     void Start () {
         triggerTimer = 0;
         transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed;
+        collideClip = Resources.Load<AudioClip>("Sounds/BallCollision");
+        detonateClip = Resources.Load<AudioClip>("Sounds/Boom1 - Dark");
     }
 	
 	// Update is called once per frame
@@ -67,7 +72,7 @@ public class PlaceBall : MonoBehaviour {
         {
             alive = false;
             GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().PlayOneShot(detonateClip);
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
             {
@@ -102,15 +107,18 @@ public class PlaceBall : MonoBehaviour {
         {
             if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
             {
+                GetComponent<AudioSource>().PlayOneShot(collideClip);
                 GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * ballBounceModifier;
             }
         }
         else if (other.gameObject.tag == "Wall")
         {
+            GetComponent<AudioSource>().PlayOneShot(collideClip);
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * wallBounceModifier;
         }
         else if (other.gameObject.tag == "Goal")
         {
+            GetComponent<AudioSource>().PlayOneShot(collideClip);
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * goalBounceModifier;
         }    
     }
