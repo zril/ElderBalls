@@ -15,9 +15,10 @@ public class PlaceBall : MonoBehaviour {
     public float goalBounceModifier = 2.0f;
     public float maxSpeed = 20.0f;
 
+
     public int playerNumber = 1;
 
-
+    private bool alive = true;
     private float triggerTimer;
     private bool trigger = false;
 
@@ -55,24 +56,40 @@ public class PlaceBall : MonoBehaviour {
     public void Trigger()
     {
         trigger = true;
+
+        gameObject.GetComponent<Animator>().SetBool("detonate", true);
     }
 
     private void Detonate()
     {
-        GetComponent<AudioSource>().Play();
-        var players = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject player in players)
+        if (alive)
         {
-            var playerScript = player.GetComponent<Player>();
-            if (player.GetComponent<Player>().playerNumber == playerNumber)
+            alive = false;
+            GetComponent<AudioSource>().Play();
+            var players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players)
             {
-                playerScript.AddPlaceBall();
+                var playerScript = player.GetComponent<Player>();
+                if (player.GetComponent<Player>().playerNumber == playerNumber)
+                {
+                    playerScript.AddPlaceBall();
+                }
+            }
+            Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
+            var fx = Instantiate(Resources.Load("PlaceBall/DetonateEffect"), transform.position, Quaternion.identity);
+            Destroy(fx, 0.05f);
+            Destroy(GetComponent<CircleCollider2D>());
+            Destroy(GetComponent<SpriteRenderer>());
+        }
+        else
+        {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GameObject.Destroy(gameObject);
+                
             }
         }
-        Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
-        GameObject.Destroy(gameObject);
-        var fx = Instantiate(Resources.Load("DetonateEffect"), transform.position, Quaternion.identity);
-        Destroy(fx, 0.05f);
+        
     }
 
     void OnCollisionExit2D(Collision2D other)
