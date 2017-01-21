@@ -82,7 +82,33 @@ public class Player : MonoBehaviour
 
         if (!IsPlaceButton && !IsTriggerButton)
         {
+            float maxX = 0;
+            float minX = -6;
+            float maxY = 3;
+            float minY = -3;
+            if (playerNumber == 2)
+            {
+                maxX = 6;
+                minX = 0;
+            }
             transform.localPosition += movement * moveSpeed * Time.deltaTime;
+            var pos = transform.localPosition;
+            if (transform.localPosition.x > maxX)
+            {
+                transform.localPosition = new Vector3(maxX, pos.y, pos.z);
+            }
+            if (transform.localPosition.x < minX)
+            {
+                transform.localPosition = new Vector3(minX, pos.y, pos.z);
+            }
+            if (transform.localPosition.y > maxY)
+            {
+                transform.localPosition = new Vector3(pos.x, maxY, pos.z);
+            }
+            if (transform.localPosition.y < minY)
+            {
+                transform.localPosition = new Vector3(pos.x, minY, pos.z);
+            }
         }
         
         if (horizontal != 0 || vertical != 0)
