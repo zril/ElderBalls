@@ -65,6 +65,7 @@ public class PlaceBall : MonoBehaviour {
         if (alive)
         {
             alive = false;
+            GetComponent<AudioSource>().pitch += (Random.value - 0.5f) / 7.0f;
             GetComponent<AudioSource>().Play();
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
