@@ -18,9 +18,7 @@ public class Player : MonoBehaviour
     string placeButton;
     string triggerButton;
     string superButton;
-
-
-    private float chargeTimer = 0;
+    
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
 
@@ -58,8 +56,6 @@ public class Player : MonoBehaviour
         bool IsTriggerButton = Input.GetButton(triggerButton);
         bool triggerUp = Input.GetButtonUp(triggerButton);
         bool super = Input.GetButtonDown(superButton);
-
-        chargeTimer += Time.deltaTime;
 
         transform.localPosition += new Vector3(horizontal, vertical, 0) * moveSpeed * Time.deltaTime;
 
