@@ -67,6 +67,10 @@ public class Player : MonoBehaviour
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
 
+        if (playerNumber == 2)
+        {
+            transform.Rotate(new Vector3(0, 180, 0));
+        }
     }
 
     // Update is called once per frame
@@ -143,8 +147,9 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
+
             throwSource.Play();
-            var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+            var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
             ballscript.playerNumber = playerNumber;
