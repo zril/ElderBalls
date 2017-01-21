@@ -27,5 +27,6 @@ public class PlaceBall : MonoBehaviour {
     public void Trigger()
     {
         Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
+        GameObject.Destroy(gameObject);
     }
 }
