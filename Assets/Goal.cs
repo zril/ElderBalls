@@ -6,6 +6,7 @@ public class Goal : MonoBehaviour {
 
     public int playerNumber = 1;
     public float pitchModificer = 0.1f;
+    public int superIncr = 3;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +36,7 @@ public class Goal : MonoBehaviour {
             if (playerScript.playerNumber == playerNumber)
             {
                 playerScript.Damage();
+                playerScript.addSuper(superIncr)
             }
         }
     }

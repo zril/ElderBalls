@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public float ballDistFactor = 2;
     public float ballDistMax = 10;
     public float pitchModifier = 0.1f;
+    public int maxSuper = 100;
+    public int damageBlockSuperIncr = 2;
 
     string xAxis;
     string yAxis;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     private GameObject chargeFx;
 
     private int hp;
+    private int super;
     private int placeBallCount;
     private int triggerBallCount;
 
@@ -44,6 +47,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         hp = 51;
+        super = 0;
         placeBallCount = 5;
         triggerBallCount = 1;
         if (playerNumber == 1)
@@ -246,6 +250,12 @@ public class Player : MonoBehaviour
     public void RemoveTriggerBall()
     {
         triggerBallCount--;
+    }
+
+    public void addSuper(int increment)
+    {
+        super = Mathf.Min(maxSuper, super + increment);
+        updateUI();
     }
 
     private void updateUI()

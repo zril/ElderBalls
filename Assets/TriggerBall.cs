@@ -7,6 +7,7 @@ public class TriggerBall : MonoBehaviour {
     public float triggerRadius = 1f;
     public float throwTime = 1f;
     public float triggerTime = 0.2f;
+    public int triggerSuperIncr = 1;
 
     public int playerNumber = 1;
     
@@ -61,6 +62,7 @@ public class TriggerBall : MonoBehaviour {
             var playerScript = player.GetComponent<Player>();
             if (player.GetComponent<Player>().playerNumber == playerNumber)
             {
+                playerScript.addSuper(triggerSuperIncr);
                 playerScript.AddTriggerBall();
             }
         }
