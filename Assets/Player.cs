@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public float ballDistBase = 2;
     public float ballDistFactor = 2;
     public float ballDistMax = 10;
+    public float pitchModifier = 0.1f;
 
     string xAxis;
     string yAxis;
@@ -29,7 +30,9 @@ public class Player : MonoBehaviour
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
     private Vector3 currentAngle;
-    private AudioClip throwClip;
+    private AudioClip placeClip;
+    private AudioClip triggerClip;
+    
 
     private int hp;
     private int placeBallCount;
@@ -48,8 +51,8 @@ public class Player : MonoBehaviour
             placeButton = "P1_Place";
             triggerButton = "P1_Trigger";
             superButton = "P1_Super";
-            throwClip = Resources.Load<AudioClip>("Sounds/Throw1 - Dark Short");
             currentAngle = new Vector3(1, 0);
+            GetComponent<AudioSource>().pitch -= pitchModifier;
         }
         else
         {
@@ -59,9 +62,10 @@ public class Player : MonoBehaviour
             triggerButton = "P2_Trigger";
             superButton = "P2_Super";
             currentAngle = new Vector3(-1, 0);
-            throwClip = Resources.Load<AudioClip>("Sounds/Throw2 - Dark Short");
+            GetComponent<AudioSource>().pitch += pitchModifier;
         }
-        Debug.Log(throwClip);
+        placeClip = Resources.Load<AudioClip>("Sounds/Throw1 - Dark Short");
+        triggerClip = Resources.Load<AudioClip>("Sounds/Throw2 - Dark Short");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
@@ -137,7 +141,7 @@ public class Player : MonoBehaviour
         if (placeUp && placeChargeTimer > 0)
         {
 
-            GetComponent<AudioSource>().PlayOneShot(throwClip);
+            GetComponent<AudioSource>().PlayOneShot(placeClip);
             var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
             ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
@@ -146,7 +150,7 @@ public class Player : MonoBehaviour
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
-            GetComponent<AudioSource>().PlayOneShot(throwClip);
+            GetComponent<AudioSource>().PlayOneShot(triggerClip);
             var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
             var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
             var ballscript = ball.GetComponent<TriggerBall>();
