@@ -207,7 +207,7 @@ public class Player : MonoBehaviour
 
     public void CheckGameOver()
     {
-        if (hp < 0)
+        if (hp <= 0)
         {
             var canvas = GameObject.FindGameObjectWithTag("Canvas");
             var gameOverText = canvas.transform.FindChild("GameOver");
