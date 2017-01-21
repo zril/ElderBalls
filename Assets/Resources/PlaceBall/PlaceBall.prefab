@@ -88,7 +88,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6dfae81df1f055844b04be7e8e8a5a56, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -189,9 +189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 0
   triggerTime: 1
-  ballBounceModifier: 0.75
-  wallBounceModifier: 0.5
-  goalBounceModifier: 2
+  ballBounceModifier: 0.5
+  wallBounceModifier: 0.25
+  goalBounceModifier: 1.5
   maxSpeed: 10
   audioPitchRange: 0.5
   playerNumber: 1
