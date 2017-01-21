@@ -61,7 +61,10 @@ public class Player : MonoBehaviour
         Vector3 movement = new Vector3(horizontal, vertical, 0);
         if (movement.magnitude > 1) movement.Normalize();
 
-        transform.localPosition += movement * moveSpeed * Time.deltaTime;
+        if (!IsPlaceButton && !IsTriggerButton)
+        {
+            transform.localPosition += movement * moveSpeed * Time.deltaTime;
+        }
 
         Vector3 angle = new Vector3(horizontal, vertical, 0).normalized;
 
@@ -74,7 +77,7 @@ public class Player : MonoBehaviour
             Debug.Log(placeChargeTimer);
             var ball = Instantiate(Resources.Load("PlaceBall"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
             var ballscript = ball.GetComponent<PlaceBall>();
-            ballscript.speed = ballSpeedBase + ballSpeedFactor * placeChargeTimer;
+            ballscript.startSpeed = ballSpeedBase + ballSpeedFactor * placeChargeTimer;
         }
         if (triggerUp)
         {
