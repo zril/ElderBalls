@@ -26,7 +26,7 @@ public class ShockwavePart : MonoBehaviour
         }
 
         transform.localPosition += transform.up * Time.deltaTime * speed;
-        transform.localScale += new Vector3(0.18f, 0, 0) * Time.deltaTime * speed;
+        transform.localScale += new Vector3(0.15f, 0, 0) * Time.deltaTime * speed;
     }
 
     void OnTriggerEnter2D(Collider2D other)

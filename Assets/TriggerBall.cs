@@ -13,6 +13,7 @@ public class TriggerBall : MonoBehaviour {
     private float throwTimer;
     private Vector3 originPos;
     private Vector3 targetPos;
+    private float baseScale = 0.125f;
 
     private float triggerTimer;
 
@@ -21,6 +22,7 @@ public class TriggerBall : MonoBehaviour {
         originPos = transform.position;
         triggerTimer = triggerTime;
         throwTimer = throwTime;
+        transform.localScale = Vector3.one * baseScale;
     }
 	
 	// Update is called once per frame
@@ -31,14 +33,15 @@ public class TriggerBall : MonoBehaviour {
             transform.position = Vector3.Lerp(targetPos, originPos, throwTimer / throwTime);
 
             var scale = 1 + 5 * (0.25f - Mathf.Pow((1 / throwTime) * (throwTimer - throwTime / 2), 2));
-            transform.localScale = new Vector3(scale, scale, 1);
-
+            transform.localScale = new Vector3(scale * baseScale, scale * baseScale, 1);
+            transform.Rotate(Vector3.forward * 500 * Time.deltaTime);
             transform.position += Vector3.up * (scale - 1) * 0.5f;
         }
         else
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one * baseScale;
             transform.position = targetPos;
+            transform.Rotate(Vector3.forward * 1600 * Time.deltaTime);
 
             triggerTimer -= Time.deltaTime;
             if (triggerTimer < 0)
