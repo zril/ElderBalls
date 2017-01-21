@@ -252,6 +252,14 @@ public class Player : MonoBehaviour
             {
                 visibleText.text = "Player 1 wins !";
             }
+            if (hp < -10)
+            {
+                visibleText.text = "Non mais c'est fini là...";
+            }
+            if (hp < -20)
+            {
+                visibleText.text = "Faut partir maintenant !";
+            }
         }
         
         //traitement
