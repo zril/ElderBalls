@@ -38,6 +38,9 @@ public class Arena : MonoBehaviour {
         Destroy(spawnGoal2);
         Destroy(spawnMoveLimit1);
         Destroy(spawnMoveLimit2);
+
+        //GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
+        //GetComponent<AudioSource>().Play();
     }
 	
 	// Update is called once per frame
