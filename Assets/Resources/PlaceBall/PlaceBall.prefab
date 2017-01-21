@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114509005882479500}
   - component: {fileID: 58950228142540686}
   - component: {fileID: 50053434638388334}
+  - component: {fileID: 95515840744864636}
   m_Layer: 0
   m_Name: PlaceBall
   m_TagString: PlaceBall
@@ -77,6 +78,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.48
+--- !u!95 &95515840744864636
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1543965636868494}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2f14982588dd10f43a3ceeb421bad73b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114509005882479500
 MonoBehaviour:
   m_ObjectHideFlags: 1
