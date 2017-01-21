@@ -33,7 +33,9 @@ public class ShockwavePart : MonoBehaviour
         if (other.gameObject.tag == "Wall")
         {
             Kill();
-            Debug.Log("kill");
+        } else if (other.gameObject.tag == "PlaceBall")
+        {
+            other.GetComponent<PlaceBall>().Trigger();
         }
     }
 
