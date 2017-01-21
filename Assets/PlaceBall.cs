@@ -10,7 +10,6 @@ public class PlaceBall : MonoBehaviour {
     //public float friction = 10f;
     //public float frictionBase = 0.5f;
     public float triggerTime = 0.5f;
-    public float collisionSpeedModifier = 0.2f;
 
 
     private float triggerTimer;
@@ -19,7 +18,7 @@ public class PlaceBall : MonoBehaviour {
     // Use this for initialization
     void Start () {
         triggerTimer = 0;
-        transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed;
+        transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed * speed;
     }
 	
 	// Update is called once per frame
@@ -53,16 +52,5 @@ public class PlaceBall : MonoBehaviour {
     {
         Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
         GameObject.Destroy(gameObject);
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "PlaceBall")
-        {
-            if (GetComponent<Rigidbody2D>().velocity.magnitude > other.rigidbody.velocity.magnitude)
-            {
-                GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity * collisionSpeedModifier;
-            }
-        }
     }
 }
