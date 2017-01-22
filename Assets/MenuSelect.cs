@@ -21,6 +21,8 @@ public class MenuSelect : MonoBehaviour
     {
         prefabs = Resources.LoadAll<GameObject>("Maps");
         currentIndex = 0;
+        currentMap = null;
+        Global.konamiCodeActive = false;
         GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/KonamiIntro");
     }
 
@@ -29,7 +31,7 @@ public class MenuSelect : MonoBehaviour
     {
         if (currentMap == null)
         {
-            if (Input.anyKey)
+            if (Input.anyKeyDown)
             {
                 var howTo  = GameObject.FindGameObjectWithTag("HowTo");
                 Destroy(howTo);
@@ -82,28 +84,30 @@ public class MenuSelect : MonoBehaviour
                 konamiIndex = 0;
             }
         }
-
-        if(Global.konamiCodeActive && !GetComponent<AudioSource>().isPlaying)
+        if (currentMap != null)
         {
-            prefabs = Resources.LoadAll<GameObject>("KonamiMap");
-            currentIndex = 0;
-            GameObject.Destroy(currentMap);
-            showCurrentMap();
-            GetComponent<AudioSource>().Play();
-        }
-        else if (!Global.konamiCodeActive && GetComponent<AudioSource>().isPlaying)
-        {
-            prefabs = Resources.LoadAll<GameObject>("Maps");
-            currentIndex = 0;
-            GameObject.Destroy(currentMap);
-            showCurrentMap();
-            GetComponent<AudioSource>().Stop();
-        }
-        else
-        if (valid)
-        {
-            Global.arenaName = prefabs[currentIndex].name;
-            SceneManager.LoadScene("main");
+            if (Global.konamiCodeActive && !GetComponent<AudioSource>().isPlaying)
+            {
+                prefabs = Resources.LoadAll<GameObject>("KonamiMap");
+                currentIndex = 0;
+                GameObject.Destroy(currentMap);
+                showCurrentMap();
+                GetComponent<AudioSource>().Play();
+            }
+            else if (!Global.konamiCodeActive && GetComponent<AudioSource>().isPlaying)
+            {
+                prefabs = Resources.LoadAll<GameObject>("Maps");
+                currentIndex = 0;
+                GameObject.Destroy(currentMap);
+                showCurrentMap();
+                GetComponent<AudioSource>().Stop();
+            }
+            else
+            if (valid)
+            {
+                Global.arenaName = prefabs[currentIndex].name;
+                SceneManager.LoadScene("main");
+            }
         }
     }
 
