@@ -85,7 +85,7 @@ public class TriggerBall : MonoBehaviour {
 
         var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
         fx.transform.localScale *= triggerRadius;
-        Destroy(fx, 0.05f);
+        Destroy(fx, 0.25f);
     }
 
     public void SetTarget(Vector3 target)
