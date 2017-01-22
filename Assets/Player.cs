@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int maxSuper = 100;
     public int damageBlockSuperIncr = 2;
     public int maxPlaceBalls = 5;
+    
 
     string xAxis;
     string yAxis;
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
     private int placeBallCount;
     private int triggerBallCount;
     private bool superActive;
+    private bool gameOverTriggered;
 
     // Use this for initialization
     void Start()
@@ -300,7 +302,12 @@ public class Player : MonoBehaviour
             var canvas = GameObject.FindGameObjectWithTag("Canvas");
             var gameOverText = canvas.transform.FindChild("GameOver");
             var visibleText = gameOverText.GetComponentInChildren<Text>();
-            GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+            if (!gameOverTriggered)
+            {
+                gameOverTriggered = true;
+                GetComponent<AudioSource>().clip = gameOverClip;
+                GetComponent<AudioSource>().Play();
+            }
             if (playerNumber == 1)
             {
                 visibleText.text = "Player 2 wins !";
