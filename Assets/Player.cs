@@ -443,9 +443,9 @@ public class Player : MonoBehaviour
         var uihp = ui.transform.FindChild("Hp");
         var text = uihp.GetComponentInChildren<Text>();
         text.text = "" + hp;
-        var uisuper = ui.transform.FindChild("Super");
-        var textsuper = uisuper.GetComponentInChildren<Text>();
-        textsuper.text = "" + super + " / " + maxSuper;
+
+        var uisuper2 = ui.transform.FindChild("Super2");
+        uisuper2.GetChild(0).gameObject.transform.localScale = new Vector3(0.5f, 0.5f + 3.5f * super / maxSuper, 1);
 
         var uiballs = ui.transform.FindChild("Balls");
         for (int i = 0; i < maxMaxPlaceBalls; i++)
