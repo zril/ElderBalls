@@ -5,11 +5,11 @@ using UnityEngine;
 public class BonusSpawn : MonoBehaviour {
 
     private float spawnTimer;
-    private float spawnPeriod = 10f;
+    public float spawnPeriod = 10f;
 
 	// Use this for initialization
 	void Start () {
-        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 2));
+        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
     }
 	
 	// Update is called once per frame

@@ -18,6 +18,7 @@ public class Arena : MonoBehaviour {
         var spawnMoveLimit2 = GameObject.FindGameObjectWithTag("MoveLimit2");
 
         var spawnBonusList = GameObject.FindGameObjectsWithTag("SpawnBonusSpawn");
+        var spawnEventList = GameObject.FindGameObjectsWithTag("SpawnEventSpawn");
 
         var player1 = Instantiate(Resources.Load("Player"), spawnPlayer1.transform.position, Quaternion.identity) as GameObject;
         player1.GetComponent<Player>().playerNumber = 1;
@@ -38,6 +39,12 @@ public class Arena : MonoBehaviour {
         {
             Instantiate(Resources.Load("Bonus/BonusSpawn"), spawnbonus.transform.position, Quaternion.identity);
             Destroy(spawnbonus, 0.2f);
+        }
+
+        foreach (GameObject spawnevent in spawnEventList)
+        {
+            Instantiate(Resources.Load("Event/EventSpawn"), spawnevent.transform.position, Quaternion.identity);
+            Destroy(spawnevent, 0.2f);
         }
 
         Destroy(spawnPlayer1);

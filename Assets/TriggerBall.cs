@@ -144,6 +144,17 @@ public class TriggerBall : MonoBehaviour {
             }
         }
 
+        var events = GameObject.FindGameObjectsWithTag("Event");
+        foreach (GameObject ev in events)
+        {
+            var p1 = new Vector2(ev.transform.position.x, ev.transform.position.y);
+            var p2 = new Vector2(transform.position.x, transform.position.y);
+            if (Vector3.Distance(p1, p2) < triggerRadius)
+            {
+                ev.GetComponent<Event>().Activate();
+            }
+        }
+
         var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
         fx.transform.localScale *= triggerRadius;
         Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);

@@ -21,6 +21,9 @@ TagManager:
   - SpawnBonus
   - SpawnBonusSpawn
   - Bonus
+  - SpawnEventSpawn
+  - EventSpawn
+  - Event
   layers:
   - Default
   - TransparentFX
