@@ -121,7 +121,7 @@ public class Arena : MonoBehaviour
                 konamiTrigger += konamiPeriod * 2;
 
 
-                var pos = new Vector3(-6 + Random.value * 12, -3 + Random.value * 6, 0);
+                var pos = new Vector3(-4 + Random.value * 8, -3 + Random.value * 6, 0);
                 Instantiate(Resources.Load("BombSpawner"), pos, Quaternion.identity);
 
                 Instantiate(Resources.Load("TriggerSpawner"), transform.position, Quaternion.identity);
