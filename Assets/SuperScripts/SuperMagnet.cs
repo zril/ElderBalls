@@ -49,7 +49,12 @@ public class SuperMagnet : SuperBase {
 
     protected override void superPotion()
     {
-        Debug.Log("Super Potion !");
+        var target = angle.normalized * startSpeed;
+        var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
+        var ballscript = ball.GetComponent<TriggerBall>();
+        ballscript.SetTarget(transform.position + target);
+        ballscript.playerNumber = playerNumber;
+        ballscript.isBlackHole = true;
     }
 
     // Use this for initialization
@@ -67,6 +72,12 @@ public class SuperMagnet : SuperBase {
         if(bomb)
         {
             superBomb();
+            GameObject.Destroy(gameObject);
+        }
+
+        if(potion)
+        {
+            superPotion();
             GameObject.Destroy(gameObject);
         }
 
