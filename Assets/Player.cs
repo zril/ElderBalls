@@ -254,15 +254,19 @@ public class Player : MonoBehaviour
             }
             if (hp < -10)
             {
-                visibleText.text = "Non mais c'est fini là...";
+                visibleText.text = "Jeu validé par Michael Bay";
             }
             if (hp < -20)
             {
-                visibleText.text = "Faut partir maintenant !";
+                visibleText.text = "Je vous dérange pas sinon ?";
             }
             if (hp < -30)
             {
-                visibleText.text = "Je vous dérange pas sinon ?";
+                visibleText.text = "Non mais c'est fini là !";
+            }
+            if (hp < -40)
+            {
+                visibleText.text = "Faut partir maintenant !";
             }
         }
         
