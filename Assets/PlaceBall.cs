@@ -41,14 +41,16 @@ public class PlaceBall : MonoBehaviour {
         transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed;
         collideClip = Resources.Load<AudioClip>("Sounds/BallCollision");
         detonateClip = Resources.Load<AudioClip>("Sounds/BoomBomb");
+        if (magnetic)
+        {
+            GetComponent<Rigidbody2D>().mass = 100.0f;
+            //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlaceBall/magnet/magnet_0");
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if(magnetic)
-        {
-            GetComponent<Rigidbody2D>().mass = 100.0f;
-        }
+        
         /*
         transform.localPosition += transform.up * Time.deltaTime * startSpeed;
         speed -= (frictionBase + friction * speed) * Time.deltaTime;

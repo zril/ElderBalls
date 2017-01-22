@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e7b52509328f6cd4e9bd0e563660a0de
-timeCreated: 1485077533
+timeCreated: 1485081664
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -20,6 +20,7 @@ TextureImporter:
     21300026: monolith_red_13
     21300028: monolith_red_14
     21300030: monolith_red_15
+    21300032: monolith_red_16
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -91,10 +92,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -102,12 +103,12 @@ TextureImporter:
       name: monolith_red_1
       rect:
         serializedVersion: 2
-        x: 680
+        x: 600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -115,12 +116,12 @@ TextureImporter:
       name: monolith_red_2
       rect:
         serializedVersion: 2
-        x: 1360
+        x: 1200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -128,12 +129,12 @@ TextureImporter:
       name: monolith_red_3
       rect:
         serializedVersion: 2
-        x: 2040
+        x: 1800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -141,12 +142,12 @@ TextureImporter:
       name: monolith_red_4
       rect:
         serializedVersion: 2
-        x: 2720
+        x: 2400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -154,12 +155,12 @@ TextureImporter:
       name: monolith_red_5
       rect:
         serializedVersion: 2
-        x: 3400
+        x: 3000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -167,12 +168,12 @@ TextureImporter:
       name: monolith_red_6
       rect:
         serializedVersion: 2
-        x: 4080
+        x: 3600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -180,12 +181,12 @@ TextureImporter:
       name: monolith_red_7
       rect:
         serializedVersion: 2
-        x: 4760
+        x: 4200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -193,12 +194,12 @@ TextureImporter:
       name: monolith_red_8
       rect:
         serializedVersion: 2
-        x: 5440
+        x: 4800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -206,12 +207,12 @@ TextureImporter:
       name: monolith_red_9
       rect:
         serializedVersion: 2
-        x: 6120
+        x: 5400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -219,12 +220,12 @@ TextureImporter:
       name: monolith_red_10
       rect:
         serializedVersion: 2
-        x: 6800
+        x: 6000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -232,12 +233,12 @@ TextureImporter:
       name: monolith_red_11
       rect:
         serializedVersion: 2
-        x: 7480
+        x: 6600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -245,12 +246,12 @@ TextureImporter:
       name: monolith_red_12
       rect:
         serializedVersion: 2
-        x: 8160
+        x: 7200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -258,12 +259,12 @@ TextureImporter:
       name: monolith_red_13
       rect:
         serializedVersion: 2
-        x: 8840
+        x: 7800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -271,12 +272,12 @@ TextureImporter:
       name: monolith_red_14
       rect:
         serializedVersion: 2
-        x: 9520
+        x: 8400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -284,12 +285,25 @@ TextureImporter:
       name: monolith_red_15
       rect:
         serializedVersion: 2
-        x: 10200
+        x: 9000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: monolith_red_16
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 0
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

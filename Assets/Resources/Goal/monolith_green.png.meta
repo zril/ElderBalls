@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 604e6cd15d83b874c85eb7cb3241dffe
-timeCreated: 1485077497
+timeCreated: 1485082471
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -20,6 +20,8 @@ TextureImporter:
     21300026: monolith_green_13
     21300028: monolith_green_14
     21300030: monolith_green_15
+    21300032: monolith_green_16
+    21300034: monolith_green_17
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -91,10 +93,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -102,12 +104,12 @@ TextureImporter:
       name: monolith_green_1
       rect:
         serializedVersion: 2
-        x: 680
+        x: 600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -115,12 +117,12 @@ TextureImporter:
       name: monolith_green_2
       rect:
         serializedVersion: 2
-        x: 1360
+        x: 1200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -128,12 +130,12 @@ TextureImporter:
       name: monolith_green_3
       rect:
         serializedVersion: 2
-        x: 2040
+        x: 1800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -141,12 +143,12 @@ TextureImporter:
       name: monolith_green_4
       rect:
         serializedVersion: 2
-        x: 2720
+        x: 2400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -154,12 +156,12 @@ TextureImporter:
       name: monolith_green_5
       rect:
         serializedVersion: 2
-        x: 3400
+        x: 3000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -167,12 +169,12 @@ TextureImporter:
       name: monolith_green_6
       rect:
         serializedVersion: 2
-        x: 4080
+        x: 3600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -180,12 +182,12 @@ TextureImporter:
       name: monolith_green_7
       rect:
         serializedVersion: 2
-        x: 4760
+        x: 4200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -193,12 +195,12 @@ TextureImporter:
       name: monolith_green_8
       rect:
         serializedVersion: 2
-        x: 5440
+        x: 4800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -206,12 +208,12 @@ TextureImporter:
       name: monolith_green_9
       rect:
         serializedVersion: 2
-        x: 6120
+        x: 5400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -219,12 +221,12 @@ TextureImporter:
       name: monolith_green_10
       rect:
         serializedVersion: 2
-        x: 6800
+        x: 6000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -232,12 +234,12 @@ TextureImporter:
       name: monolith_green_11
       rect:
         serializedVersion: 2
-        x: 7480
+        x: 6600
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -245,12 +247,12 @@ TextureImporter:
       name: monolith_green_12
       rect:
         serializedVersion: 2
-        x: 8160
+        x: 7200
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -258,12 +260,12 @@ TextureImporter:
       name: monolith_green_13
       rect:
         serializedVersion: 2
-        x: 8840
+        x: 7800
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -271,12 +273,12 @@ TextureImporter:
       name: monolith_green_14
       rect:
         serializedVersion: 2
-        x: 9520
+        x: 8400
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -284,12 +286,25 @@ TextureImporter:
       name: monolith_green_15
       rect:
         serializedVersion: 2
-        x: 10200
+        x: 9000
         y: 0
-        width: 680
-        height: 1820
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: monolith_green_16
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 0
+        width: 600
+        height: 2320
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

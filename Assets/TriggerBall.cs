@@ -38,7 +38,10 @@ public class TriggerBall : MonoBehaviour
         throwTimer = throwTime * timeOffset;
         transform.localScale = Vector3.one * baseScale;
         if (isBlackHole)
+        {
             triggerMaxTimer = blackHoleTriggerMaxTimer;
+            GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Trigger/blackhole");
+        }
     }
 
     // Update is called once per frame
