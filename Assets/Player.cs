@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public int damageBlockSuperIncr = 2;
     public int maxPlaceBalls = 5;
     public float bombPowerFactor = 1;
-    public int baseHp;
+    public int baseHp = 51;
 
     string xAxis;
     string yAxis;
