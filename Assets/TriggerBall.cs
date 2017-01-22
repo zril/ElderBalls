@@ -88,6 +88,11 @@ public class TriggerBall : MonoBehaviour {
         Destroy(fx, 0.25f);
     }
 
+    public bool IsOnGround()
+    {
+        return throwTimer < 0;
+    }
+
     public void SetTarget(Vector3 target)
     {
         targetPos = target;

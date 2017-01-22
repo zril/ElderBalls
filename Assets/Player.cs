@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private GameObject directionElement;
     private GameObject placeChargeIndicator;
     private GameObject triggerChargeIndicator;
+    private GameObject pushChargeIndicator;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
     private float pushChargeTimer = 0;
@@ -85,6 +86,7 @@ public class Player : MonoBehaviour
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
+        pushChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         superString = "SuperMagnet";
 
         if (playerNumber == 2)
@@ -149,6 +151,7 @@ public class Player : MonoBehaviour
         directionElement.transform.position = transform.localPosition + (currentAngle / 2.0f);
         placeChargeIndicator.transform.position = transform.localPosition;
         triggerChargeIndicator.transform.position = transform.localPosition;
+        pushChargeIndicator.transform.position = transform.localPosition;
 
 
         float placeChargePct = Mathf.Min(ballSpeedFactor * placeChargeTimer, ballSpeedMax - ballSpeedBase) / (ballSpeedMax - ballSpeedBase);
@@ -159,6 +162,10 @@ public class Player : MonoBehaviour
         float triggerChargePct = Mathf.Min(ballDistFactor * triggerChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
         triggerChargeIndicator.transform.localScale = new Vector3(triggerChargePct * 2, triggerChargePct * 2, triggerChargePct);
         triggerChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
+
+        float pushChargePct = Mathf.Min(ballDistFactor * pushChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
+        pushChargeIndicator.transform.localScale = new Vector3(pushChargePct * 2, pushChargePct * 2, pushChargePct);
+        pushChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
 
 
 
@@ -214,7 +221,7 @@ public class Player : MonoBehaviour
             else
             {
                 //GetComponent<AudioSource>().PlayOneShot(triggerClip);
-                var push = Instantiate(Resources.Load("Push"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+                var push = Instantiate(Resources.Load("Push"), Vector3.forward + transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
                 push.GetComponent<Push>().SetChargeFactor(pushChargeTimer);
             }
             Destroy(chargeFx);
