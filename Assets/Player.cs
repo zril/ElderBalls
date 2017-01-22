@@ -165,16 +165,16 @@ public class Player : MonoBehaviour
 
 
         float placeChargePct = Mathf.Min(ballSpeedFactor * placeChargeTimer, ballSpeedMax - ballSpeedBase) / (ballSpeedMax - ballSpeedBase);
-        placeChargeIndicator.transform.localScale = new Vector3(placeChargePct * 2, placeChargePct * 2, placeChargePct);
+        placeChargeIndicator.transform.localScale = 0.04f * new Vector3(placeChargePct * 2, placeChargePct * 2, placeChargePct);
         placeChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
 
 
         float triggerChargePct = Mathf.Min(ballDistFactor * triggerChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
-        triggerChargeIndicator.transform.localScale = new Vector3(triggerChargePct * 2, triggerChargePct * 2, triggerChargePct);
+        triggerChargeIndicator.transform.localScale = 0.04f * new Vector3(triggerChargePct * 2, triggerChargePct * 2, triggerChargePct);
         triggerChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
 
         float pushChargePct = Mathf.Min(ballDistFactor * pushChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
-        pushChargeIndicator.transform.localScale = new Vector3(pushChargePct * 2, pushChargePct * 2, pushChargePct);
+        pushChargeIndicator.transform.localScale = 0.04f * new Vector3(pushChargePct * 2, pushChargePct * 2, pushChargePct);
         pushChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
 
 
