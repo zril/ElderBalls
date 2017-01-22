@@ -333,12 +333,12 @@ public class Player : MonoBehaviour
             }
             if (playerNumber == 1)
             {
-                visibleSubText.text = "Player 2 wins !";
+                visibleText.text = "Player 2 wins !";
                 Global.winner = 2;
             }
             else
             {
-                visibleSubText.text = "Player 1 wins !";
+                visibleText.text = "Player 1 wins !";
                 Global.winner = 1;
             }
             if (hp < -10)
@@ -400,7 +400,12 @@ public class Player : MonoBehaviour
     {
         if (!superActive)
         {
+            if(super < maxSuper && super + increment > maxSuper)
+            {
+                GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/SuperReady"));
+            }
             super = Mathf.Min(maxSuper, super + increment);
+            
             updateUI();
         }
     }
