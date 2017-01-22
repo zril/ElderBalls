@@ -8,6 +8,7 @@ public class Event : MonoBehaviour {
 
     private EventSpawn parent;
 
+
     // Use this for initialization
     void Start () {
 		
@@ -15,7 +16,7 @@ public class Event : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
 
     public void Activate()
@@ -23,10 +24,7 @@ public class Event : MonoBehaviour {
         switch (eventType)
         {
             case "bomb":
-                for(int i = 0; i < 10; i++)
-                {
-                    InvokeRepeating("bombs", 0.2f, 0.5f);
-                }
+                Instantiate(Resources.Load("BombSpawner"), transform.position, Quaternion.identity);
                 break;
             case "trigger":
                 //todo
@@ -38,19 +36,12 @@ public class Event : MonoBehaviour {
                 break;
         }
         parent.UnFreeze();
+
         Destroy(gameObject);
     }
 
     public void SetParent(EventSpawn parent)
     {
         this.parent = parent;
-    }
-
-    private void bombs()
-    {
-        var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), transform.position, Quaternion.identity) as GameObject;
-        var ballscript = ball.GetComponent<PlaceBall>();
-        ballscript.startSpeed = 1f;
-        ballscript.playerNumber = 0;
     }
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class EventSpawn : MonoBehaviour {
 
     private float spawnTimer;
-    private float spawnPeriod = 5f;
+    public float spawnPeriod = 10f;
 
     private bool freeze = false;
 
     // Use this for initialization
     void Start()
     {
-        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 2));
+        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
     }
 
     // Update is called once per frame
@@ -43,10 +43,12 @@ public class EventSpawn : MonoBehaviour {
         else if (random < 0.66f)
         {
             ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
+            ev.GetComponent<Event>().eventType = "bomb";
         }
         else
         {
             ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
+            ev.GetComponent<Event>().eventType = "bomb";
         }
 
         ev.GetComponent<Event>().SetParent(this);
