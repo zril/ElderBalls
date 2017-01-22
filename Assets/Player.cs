@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float pitchModifier = 0.1f;
     public int maxSuper = 100;
     public int damageBlockSuperIncr = 2;
+    public int maxPlaceBalls = 5;
 
     string xAxis;
     string yAxis;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
     string triggerButton;
     string pushButton;
     string superButton;
+
+    private int maxMaxPlaceBalls = 10;
 
 
     private GameObject directionElement;
@@ -50,7 +53,7 @@ public class Player : MonoBehaviour
     {
         hp = 51;
         super = 0;
-        placeBallCount = 5;
+        placeBallCount = maxPlaceBalls;
         triggerBallCount = 1;
         if (playerNumber == 1)
         {
@@ -85,6 +88,8 @@ public class Player : MonoBehaviour
         {
             transform.Rotate(new Vector3(0, 180, 0));
         }
+
+        updateUI();
     }
 
     // Update is called once per frame
@@ -321,7 +326,7 @@ public class Player : MonoBehaviour
         textsuper.text = "" + super + " / " + maxSuper;
 
         var uiballs = ui.transform.FindChild("Balls");
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < maxMaxPlaceBalls; i++)
         {
             var ball = uiballs.FindChild("Ball" + (i + 1));
             ball.gameObject.SetActive(i < placeBallCount);
