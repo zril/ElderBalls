@@ -10,6 +10,7 @@ public class Arena : MonoBehaviour
     private float konamiTimer = 0.0f;
     private float konamiTrigger = 13.95f;
     private float konamiPeriod = 1.39f;
+    private bool hemanLoaded = false;
 
     // Use this for initialization
     void Start()
@@ -18,7 +19,6 @@ public class Arena : MonoBehaviour
         if (Global.konamiCodeActive)
         {
             Instantiate(Resources.Load("KonamiMap/" + Global.arenaName), transform.position, Quaternion.identity);
-
         }
         else
         {
@@ -117,7 +117,15 @@ public class Arena : MonoBehaviour
             konamiTimer += Time.deltaTime;
             if (konamiTimer > konamiTrigger)
             {
+                if(!hemanLoaded)
+                {
+                    var posHeman = transform.position;
+                    posHeman.z = -10;
+                    Instantiate(Resources.Load("HeMan"), transform.position, Quaternion.identity);
+                }
+
                 konamiTrigger += konamiPeriod * 2;
+
 
                 var pos = new Vector3(-6 + Random.value * 12, -3 + Random.value * 6, 0);
                 Instantiate(Resources.Load("BombSpawner"), pos, Quaternion.identity);
