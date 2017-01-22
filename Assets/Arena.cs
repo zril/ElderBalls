@@ -98,6 +98,7 @@ public class Arena : MonoBehaviour
 
         if (Global.konamiCodeActive)
         {
+            GetComponent<AudioSource>().volume = 1.0f;
             GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/Konami");
         }
         else
@@ -116,9 +117,12 @@ public class Arena : MonoBehaviour
             konamiTimer += Time.deltaTime;
             if (konamiTimer > konamiTrigger)
             {
-                konamiTrigger += konamiPeriod *2;
-                Debug.Log("Brain Power Balls " + konamiTimer);
-                //DO STUFF
+                konamiTrigger += konamiPeriod * 2;
+
+                var pos = new Vector3(-6 + Random.value * 12, -3 + Random.value * 6, 0);
+                Instantiate(Resources.Load("BombSpawner"), pos, Quaternion.identity);
+
+                Instantiate(Resources.Load("TriggerSpawner"), transform.position, Quaternion.identity);
             }
 
         }

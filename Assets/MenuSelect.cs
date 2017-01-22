@@ -71,7 +71,6 @@ public class MenuSelect : MonoBehaviour
             if (up && KonamiCodeSeq[konamiIndex] == 'u' || down && KonamiCodeSeq[konamiIndex] == 'd' || left && KonamiCodeSeq[konamiIndex] == 'l' || right && KonamiCodeSeq[konamiIndex] == 'r' || valid && KonamiCodeSeq[konamiIndex] == 'a' || cancel && KonamiCodeSeq[konamiIndex] == 'b')
             {
                 konamiIndex++;
-                //Debug.Log(konamiIndex);
                 if (konamiIndex >= KonamiCodeSeq.Length)
                 {
                     konamiIndex = 0;
@@ -82,7 +81,6 @@ public class MenuSelect : MonoBehaviour
             {
                 konamiIndex = 0;
             }
-            Debug.Log(konamiIndex);
         }
 
         if(Global.konamiCodeActive && !GetComponent<AudioSource>().isPlaying)

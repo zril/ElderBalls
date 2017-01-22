@@ -50,7 +50,7 @@ public class TriggerBall : MonoBehaviour
         if (throwTimer >= 0)
         {
             throwTimer -= Time.deltaTime;
-            if(throwTimer < 0)
+            if (throwTimer < 0)
             {
                 GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/DetonatorLand"));
             }
@@ -116,14 +116,17 @@ public class TriggerBall : MonoBehaviour
             {
                 GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/BoomPotion"));
                 GetComponent<AudioSource>().loop = true;
-                 GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/SuperBlackHole");
+                GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/SuperBlackHole");
                 GetComponent<AudioSource>().Play();
                 blackHoleActive = true;
             }
             else
             {
-                GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BoomPotion");
-                GetComponent<AudioSource>().Play();
+                if (!Global.konamiCodeActive)
+                {
+                    GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BoomPotion");
+                    GetComponent<AudioSource>().Play();
+                }
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 Player targetPlayer = null;
                 foreach (GameObject player in players)
@@ -181,7 +184,7 @@ public class TriggerBall : MonoBehaviour
             fx.transform.localScale *= triggerRadius;
             Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
         }
-        else if(!GetComponent<AudioSource>().isPlaying)
+        else if (!GetComponent<AudioSource>().isPlaying)
         {
             GameObject.Destroy(gameObject);
         }
