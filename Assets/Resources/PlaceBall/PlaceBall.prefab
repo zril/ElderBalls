@@ -191,7 +191,7 @@ MonoBehaviour:
   triggerTime: 1
   ballBounceModifier: 0.5
   wallBounceModifier: 0.25
-  goalBounceModifier: 1.5
+  goalBounceModifier: 1
   maxSpeed: 10
   audioPitchRange: 0.5
   playerNumber: 1
