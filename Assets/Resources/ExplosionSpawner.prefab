@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4936486196461814}
-  - component: {fileID: 114861270688999170}
+  - component: {fileID: 114166218900495502}
   m_Layer: 0
-  m_Name: BombSpawner
+  m_Name: ExplosionSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114861270688999170
+--- !u!114 &114166218900495502
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -48,6 +48,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1261236243332330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0957625b5a185634f8ecce87d353e9f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b12e29a78eae9e4b9d93df937c88b26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

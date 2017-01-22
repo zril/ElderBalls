@@ -37,8 +37,8 @@ public class EventSpawn : MonoBehaviour {
         var random = Random.value;
         if (random < 0.33f)
         {
-            ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
-            ev.GetComponent<Event>().eventType = "bomb";
+            ev = Instantiate(Resources.Load("Event/EventTrigger"), transform.position, Quaternion.identity) as GameObject;
+            ev.GetComponent<Event>().eventType = "trigger";
         }
         else if (random < 0.66f)
         {
@@ -47,8 +47,8 @@ public class EventSpawn : MonoBehaviour {
         }
         else
         {
-            ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
-            ev.GetComponent<Event>().eventType = "bomb";
+            ev = Instantiate(Resources.Load("Event/EventExplosion"), transform.position, Quaternion.identity) as GameObject;
+            ev.GetComponent<Event>().eventType = "explosion";
         }
 
         ev.GetComponent<Event>().SetParent(this);

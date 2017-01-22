@@ -5,34 +5,36 @@ using UnityEngine;
 public class TriggerSpawner : MonoBehaviour {
 
 
-    private int bombs = 0;
-    private float bombsTimer = 0;
-    private float bombsPeriod = 0.1f;
+    private int triggers = 0;
+    private float triggersTimer = 0;
+    private float triggersPeriod = 0.15f;
 
     // Use this for initialization
     void Start () {
-        bombs = 10;
+        triggers = 20;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (bombs > 0)
+        if (triggers > 0)
         {
-            bombsTimer -= Time.deltaTime;
-            if (bombsTimer < 0)
+            triggersTimer -= Time.deltaTime;
+            if (triggersTimer < 0)
             {
-                bomb();
-                bombsTimer += bombsPeriod;
-                bombs--;
+                trigger();
+                triggersTimer += triggersPeriod;
+                triggers--;
             }
         }
     }
 
-    private void bomb()
+    private void trigger()
     {
-        var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), transform.position, Quaternion.Euler(new Vector3(0,0, Random.value * 360))) as GameObject;
-        var ballscript = ball.GetComponent<PlaceBall>();
-        ballscript.startSpeed = 0.5f;
+        var pos = new Vector3(-6 + Random.value * 12, -3 + Random.value * 6, 0);
+        var ball = Instantiate(Resources.Load("TriggerBall"), pos, Quaternion.identity) as GameObject;
+        var ballscript = ball.GetComponent<TriggerBall>();
         ballscript.playerNumber = 0;
+        ballscript.SetThrowTimer(0.5f);
+        ballscript.SetTarget(pos);
     }
 }

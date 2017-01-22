@@ -27,10 +27,10 @@ public class Event : MonoBehaviour {
                 Instantiate(Resources.Load("BombSpawner"), transform.position, Quaternion.identity);
                 break;
             case "trigger":
-                //todo
+                Instantiate(Resources.Load("TriggerSpawner"), transform.position, Quaternion.identity);
                 break;
-            case "detonate":
-                //todo
+            case "explosion":
+                Instantiate(Resources.Load("ExplosionSpawner"), transform.position, Quaternion.identity);
                 break;
             default:
                 break;

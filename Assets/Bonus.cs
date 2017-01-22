@@ -31,19 +31,23 @@ public class Bonus : MonoBehaviour {
                 playerScript = player.GetComponent<Player>();
             }
         }
-        switch (bonusType)
+
+        if (playerScript != null)
         {
-            case "bomb":
-                playerScript.AddPlaceBall();
-                break;
-            case "speed":
-                playerScript.moveSpeed += 0.5f;
-                break;
-            case "power":
-                playerScript.bombPowerFactor += 0.25f;
-                break;
-            default:
-                break;
+            switch (bonusType)
+            {
+                case "bomb":
+                    playerScript.AddPlaceBall();
+                    break;
+                case "speed":
+                    playerScript.moveSpeed += 0.5f;
+                    break;
+                case "power":
+                    playerScript.bombPowerFactor += 0.25f;
+                    break;
+                default:
+                    break;
+            }
         }
 
         Destroy(gameObject);

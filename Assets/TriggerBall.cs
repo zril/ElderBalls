@@ -29,13 +29,13 @@ public class TriggerBall : MonoBehaviour
     private float blackHoleTimer;
     private bool alive = true;
 
-
+    private float timeOffset = 1;
 
     // Use this for initialization
     void Start()
     {
         originPos = transform.position;
-        throwTimer = throwTime;
+        throwTimer = throwTime * timeOffset;
         transform.localScale = Vector3.one * baseScale;
         if (isBlackHole)
             triggerMaxTimer = blackHoleTriggerMaxTimer;
@@ -195,5 +195,10 @@ public class TriggerBall : MonoBehaviour
         triggerMaxTimer = triggerTime;
         throwTimer = throwTime;
         transform.localScale = Vector3.one * baseScale;
+    }
+
+    public void SetThrowTimer(float t)
+    {
+        timeOffset = t;
     }
 }
