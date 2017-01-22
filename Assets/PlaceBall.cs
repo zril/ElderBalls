@@ -26,6 +26,8 @@ public class PlaceBall : MonoBehaviour {
     private AudioClip collideClip;
     private AudioClip detonateClip;
 
+    private float powerFactor = 1;
+
     // Use this for initialization
     void Start () {
         triggerTimer = 0;
@@ -135,5 +137,9 @@ public class PlaceBall : MonoBehaviour {
         }
     }
 
+    public void SetPowerFactor(float factor)
+    {
+        powerFactor = factor;
+    }
     
 }

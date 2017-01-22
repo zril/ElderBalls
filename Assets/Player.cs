@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int maxSuper = 100;
     public int damageBlockSuperIncr = 2;
     public int maxPlaceBalls = 5;
+    public float bombPowerFactor = 1;
 
     string xAxis;
     string yAxis;
@@ -332,6 +333,10 @@ public class Player : MonoBehaviour
     public void AddPlaceBall()
     {
         placeBallCount++;
+        if (placeBallCount > maxMaxPlaceBalls)
+        {
+            placeBallCount = maxMaxPlaceBalls;
+        }
         updateUI();
     }
 

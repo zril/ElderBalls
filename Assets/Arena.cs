@@ -36,7 +36,7 @@ public class Arena : MonoBehaviour {
 
         foreach(GameObject spawnbonus in spawnBonusList)
         {
-            Instantiate(Resources.Load("BonusSpawn"), spawnbonus.transform.position, Quaternion.identity);
+            Instantiate(Resources.Load("Bonus/BonusSpawn"), spawnbonus.transform.position, Quaternion.identity);
             Destroy(spawnbonus, 0.2f);
         }
 
