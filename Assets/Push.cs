@@ -11,8 +11,33 @@ public class Push : MonoBehaviour {
 
     private float chargeFactor = 0;
 
+    private float pushTimer;
+    private float pushPeriod = 0.15f;
+
 	// Use this for initialization
 	void Start () {
+        pushTimer = pushPeriod;
+
+        Destroy(gameObject, 0.55f);
+    }
+	
+	// Update is called once per frame
+	void Update () {
+        pushTimer -= Time.deltaTime;
+        if (pushTimer < 0)
+        {
+            pushTimer += pushPeriod;
+            push();
+        }
+    }
+
+    public void SetChargeFactor(float timer)
+    {
+        chargeFactor = timer * chargeModifier;
+    }
+
+    private void push()
+    {
         var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
         foreach (GameObject ball in balls)
         {
@@ -20,11 +45,11 @@ public class Push : MonoBehaviour {
             var p2 = new Vector2(transform.position.x, transform.position.y);
 
             var v = p2 - p1;
-            var delta = Vector3.Angle(v, - new Vector2(transform.up.x, transform.up.y));
+            var delta = Vector3.Angle(v, -new Vector2(transform.up.x, transform.up.y));
             if (Vector3.Distance(p1, p2) < radius && delta < angle / 2)
             {
                 Vector3 push = transform.up * (basePower + chargeFactor);
-                ball.GetComponent < Rigidbody2D > ().velocity = new Vector2(push.x, push.y);
+                ball.GetComponent<Rigidbody2D>().velocity = new Vector2(push.x, push.y);
             }
         }
 
@@ -43,17 +68,5 @@ public class Push : MonoBehaviour {
                 trigger.GetComponent<TriggerBall>().SetTarget(transform.position + push);
             }
         }
-
-        Destroy(gameObject, 0.5f);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void SetChargeFactor(float timer)
-    {
-        chargeFactor = timer * chargeModifier;
     }
 }
