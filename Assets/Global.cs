@@ -7,4 +7,5 @@ static class Global
 {
     public static string arenaName = "Map18 - Hiding in the corner";
     public static int winner = 0;
+    public static Boolean konamiCodeActive = false;
 }

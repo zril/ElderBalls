@@ -13,11 +13,15 @@ public class MenuSelect : MonoBehaviour
     private float previousHorizontal;
     private float previousVertical;
 
+    char[] KonamiCodeSeq = { 'u', 'u', 'd', 'd', 'l', 'r', 'l', 'r', 'b', 'a' };
+    private int konamiIndex = 0;
+
     // Use this for initialization
     void Start()
     {
         prefabs = Resources.LoadAll<GameObject>("Maps");
         currentIndex = 0;
+        GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/KonamiIntro");
     }
 
     // Update is called once per frame
@@ -37,10 +41,10 @@ public class MenuSelect : MonoBehaviour
         bool left = Input.GetKeyDown(KeyCode.LeftArrow) || (previousHorizontal >= 0 && horizontal < 0);
         bool right = Input.GetKeyDown(KeyCode.RightArrow) || (previousHorizontal <= 0 && horizontal > 0);
 
-        bool down = Input.GetKeyDown(KeyCode.LeftArrow) || (previousVertical >= 0 && vertical < 0);
-        bool up = Input.GetKeyDown(KeyCode.RightArrow) || (previousVertical <= 0 && vertical > 0);
-        bool valid = Input.GetButtonDown("P1_Place");
-        bool cancel = Input.GetButtonDown("P1_Trigger");
+        bool down = Input.GetKeyDown(KeyCode.DownArrow) || (previousVertical >= 0 && vertical < 0);
+        bool up = Input.GetKeyDown(KeyCode.UpArrow) || (previousVertical <= 0 && vertical > 0);
+        bool valid = Input.GetButtonDown("P1_Place") || Input.GetKeyDown(KeyCode.A);
+        bool cancel = Input.GetButtonDown("P1_Trigger") || Input.GetKeyDown(KeyCode.B); ;
 
 
         if (left || down)
@@ -58,14 +62,51 @@ public class MenuSelect : MonoBehaviour
             showCurrentMap();
         }
 
+
+        previousHorizontal = horizontal;
+        previousVertical = vertical;
+        //KonamiCode
+        if (up || down || left || right || valid || cancel)
+        {
+            if (up && KonamiCodeSeq[konamiIndex] == 'u' || down && KonamiCodeSeq[konamiIndex] == 'd' || left && KonamiCodeSeq[konamiIndex] == 'l' || right && KonamiCodeSeq[konamiIndex] == 'r' || valid && KonamiCodeSeq[konamiIndex] == 'a' || cancel && KonamiCodeSeq[konamiIndex] == 'b')
+            {
+                konamiIndex++;
+                //Debug.Log(konamiIndex);
+                if (konamiIndex >= KonamiCodeSeq.Length)
+                {
+                    konamiIndex = 0;
+                    Global.konamiCodeActive = !Global.konamiCodeActive;
+                }
+            }
+            else
+            {
+                konamiIndex = 0;
+            }
+            Debug.Log(konamiIndex);
+        }
+
+        if(Global.konamiCodeActive && !GetComponent<AudioSource>().isPlaying)
+        {
+            prefabs = Resources.LoadAll<GameObject>("KonamiMap");
+            currentIndex = 0;
+            GameObject.Destroy(currentMap);
+            showCurrentMap();
+            GetComponent<AudioSource>().Play();
+        }
+        else if (!Global.konamiCodeActive && GetComponent<AudioSource>().isPlaying)
+        {
+            prefabs = Resources.LoadAll<GameObject>("Maps");
+            currentIndex = 0;
+            GameObject.Destroy(currentMap);
+            showCurrentMap();
+            GetComponent<AudioSource>().Stop();
+        }
+        else
         if (valid)
         {
             Global.arenaName = prefabs[currentIndex].name;
             SceneManager.LoadScene("main");
         }
-
-        previousHorizontal = horizontal;
-        previousVertical = vertical;
     }
 
     void showCurrentMap()
