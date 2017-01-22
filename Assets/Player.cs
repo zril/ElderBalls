@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private AudioClip placeClip;
     private AudioClip triggerClip;
     private AudioClip gameOverClip;
+    private string superString;
 
     private GameObject chargeFx;
 
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
     private int super;
     private int placeBallCount;
     private int triggerBallCount;
+    private bool superActive;
 
     // Use this for initialization
     void Start()
@@ -83,6 +85,7 @@ public class Player : MonoBehaviour
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
+        superString = "SuperMagnet";
 
         if (playerNumber == 2)
         {
@@ -105,7 +108,7 @@ public class Player : MonoBehaviour
         bool triggerUp = Input.GetButtonUp(triggerButton);
         bool IsPushButton = Input.GetButton(pushButton);
         bool pushUp = Input.GetButtonUp(pushButton);
-        bool super = Input.GetButtonDown(superButton);
+        bool superButton = Input.GetButton(this.superButton);
         
 
         Vector3 movement = new Vector3(horizontal, vertical, 0);
@@ -161,35 +164,68 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
-
-            GetComponent<AudioSource>().PlayOneShot(placeClip);
-            var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
-            var ballscript = ball.GetComponent<PlaceBall>();
-            ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer,ballSpeedMax);
-            ballscript.playerNumber = playerNumber;
-            RemovePlaceBall();
+            if (superActive)
+            {
+                var superElm = Instantiate(Resources.Load("Supers/" + superString), Vector3.forward + transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
+                var superScript = superElm.GetComponent<SuperBase>();
+                superActive = false;
+            }
+            else
+            {
+                GetComponent<AudioSource>().PlayOneShot(placeClip);
+                var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+                var ballscript = ball.GetComponent<PlaceBall>();
+                ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer, ballSpeedMax);
+                ballscript.playerNumber = playerNumber;
+                RemovePlaceBall();
+            }
             Destroy(chargeFx);
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
-            GetComponent<AudioSource>().PlayOneShot(triggerClip);
-            var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer,ballDistMax));
-            var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
-            var ballscript = ball.GetComponent<TriggerBall>();
-            ballscript.SetTarget(transform.position + target);
-            ballscript.playerNumber = playerNumber;
-            RemoveTriggerBall();
+            if (superActive)
+            {
+                var superElm = Instantiate(Resources.Load("Supers/" + superString), Vector3.forward + transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
+                var superScript = superElm.GetComponent<SuperBase>();
+                superActive = false;
+            }
+            else
+            {
+                GetComponent<AudioSource>().PlayOneShot(triggerClip);
+                var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer, ballDistMax));
+                var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
+                var ballscript = ball.GetComponent<TriggerBall>();
+                ballscript.SetTarget(transform.position + target);
+                ballscript.playerNumber = playerNumber;
+                RemoveTriggerBall();
+            }
             Destroy(chargeFx);
         }
 
         if (pushUp && pushChargeTimer > 0)
         {
-            //GetComponent<AudioSource>().PlayOneShot(triggerClip);
-            var push = Instantiate(Resources.Load("Push"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
-            push.GetComponent<Push>().SetChargeFactor(pushChargeTimer);
+            if (superActive)
+            {
+                var superElm = Instantiate(Resources.Load("Supers/" + superString),transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
+                var superScript = superElm.GetComponent<SuperBase>();
+                superScript.knife = true;
+                superActive = false;
+            }
+            else
+            {
+                //GetComponent<AudioSource>().PlayOneShot(triggerClip);
+                var push = Instantiate(Resources.Load("Push"), transform.position, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+                push.GetComponent<Push>().SetChargeFactor(pushChargeTimer);
+            }
             Destroy(chargeFx);
         }
 
+        if (superButton && !superActive && super >= maxSuper)
+        {
+            super = 0;
+            superActive = true;
+            updateUI();
+        }
 
         if (IsPlaceButton && triggerChargeTimer == 0 && pushChargeTimer == 0 && placeBallCount > 0)
         {
@@ -310,8 +346,11 @@ public class Player : MonoBehaviour
 
     public void addSuper(int increment)
     {
-        super = Mathf.Min(maxSuper, super + increment);
-        updateUI();
+        if (!superActive)
+        {
+            super = Mathf.Min(maxSuper, super + increment);
+            updateUI();
+        }
     }
 
     private void updateUI()
