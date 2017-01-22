@@ -32,6 +32,7 @@ public class PlaceBall : MonoBehaviour {
     private bool trigger = false;
     private AudioClip collideClip;
     private AudioClip detonateClip;
+    private AudioClip magneticClip;
 
     private float powerFactor = 1;
 
@@ -46,6 +47,7 @@ public class PlaceBall : MonoBehaviour {
             GetComponent<Rigidbody2D>().mass = 100.0f;
             //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlaceBall/magnet/magnet_0");
         }
+        magneticClip = Resources.Load<AudioClip>("Sounds/SuperMagnet");
     }
 	
 	// Update is called once per frame
@@ -78,6 +80,11 @@ public class PlaceBall : MonoBehaviour {
         //Super Ballz
         if(magnetic && alive)
         {
+            if (!GetComponents<AudioSource>()[1].isPlaying)
+            {
+                GetComponents<AudioSource>()[1].clip = magneticClip;
+                GetComponents<AudioSource>()[1].Play();
+            }
             //attract
             var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
             foreach (GameObject ball in balls)
@@ -110,9 +117,14 @@ public class PlaceBall : MonoBehaviour {
         if (alive)
         {
             alive = false;
-            GetComponent<AudioSource>().clip = detonateClip;
-            GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
-            GetComponent<AudioSource>().Play();
+            if(magnetic && GetComponents<AudioSource>()[1].isPlaying)
+            {
+                GetComponents<AudioSource>()[1].Stop();
+            }
+            GetComponents<AudioSource>()[0].clip = detonateClip;
+            GetComponents<AudioSource>()[0].pitch += (Random.value - 0.5f) * audioPitchRange * 2;
+            GetComponents<AudioSource>()[0].Play();
+
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
             {
@@ -135,7 +147,7 @@ public class PlaceBall : MonoBehaviour {
         }
         else
         {
-            if (!GetComponent<AudioSource>().isPlaying)
+            if (!GetComponents<AudioSource>()[0].isPlaying)
             {
                 GameObject.Destroy(gameObject);
                 
@@ -154,21 +166,21 @@ public class PlaceBall : MonoBehaviour {
             }
             else if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
             {
-                GetComponent<AudioSource>().clip = collideClip;
-                GetComponent<AudioSource>().Play();
+                GetComponents<AudioSource>()[0].clip = collideClip;
+                GetComponents<AudioSource>()[0].Play();
                 GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * ballBounceModifier;
             }
         }
         else if (other.gameObject.tag == "Wall")
         {
-            GetComponent<AudioSource>().clip = collideClip;
-            GetComponent<AudioSource>().Play();
+            GetComponents<AudioSource>()[0].clip = collideClip;
+            GetComponents<AudioSource>()[0].Play();
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * wallBounceModifier;
         }
         else if (other.gameObject.tag == "Goal")
         {
-            GetComponent<AudioSource>().clip = collideClip;
-            GetComponent<AudioSource>().Play();
+            GetComponents<AudioSource>()[0].clip = collideClip;
+            GetComponents<AudioSource>()[0].Play();
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * goalBounceModifier;
         }    
     }

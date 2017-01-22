@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1569450436722288}
+  m_RootGameObject: {fileID: 1243772912717400}
   m_IsPrefabParent: 1
---- !u!1 &1569450436722288
+--- !u!1 &1243772912717400
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4897746075764290}
-  - component: {fileID: 114435659699791308}
+  - component: {fileID: 4818660596624546}
+  - component: {fileID: 114447770428853016}
   m_Layer: 0
-  m_Name: BonusSpawn
-  m_TagString: SpawnBonusSpawn
+  m_Name: BonusEvent
+  m_TagString: SpawnEventSpawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4897746075764290
+--- !u!4 &4818660596624546
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1569450436722288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1243772912717400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114435659699791308
+--- !u!114 &114447770428853016
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1569450436722288}
+  m_GameObject: {fileID: 1243772912717400}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14cb065d2d8ab564e93683e03a5ab79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  period: 5
+  period: 10

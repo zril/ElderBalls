@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Arena : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class Arena : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Global.winner = 0;
         Instantiate(Resources.Load("Maps/"+Global.arenaName), transform.position, Quaternion.identity);
 
         var spawnPlayer1 = GameObject.FindGameObjectWithTag("SpawnPlayer1");
@@ -74,9 +76,12 @@ public class Arena : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.R))
         {
             GetComponent<AudioSource>().Stop();
-            Application.LoadLevel("main");
-            //GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/track" + Mathf.CeilToInt(Random.value * 5));
-            //GetComponent<AudioSource>().Play();
+            SceneManager.LoadScene("main");
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GetComponent<AudioSource>().Stop();
+            SceneManager.LoadScene("Menu");
         }
     }
 }
