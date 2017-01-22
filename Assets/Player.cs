@@ -254,6 +254,9 @@ public class Player : MonoBehaviour
             super = 0;
             superActive = true;
             GetComponent<AudioSource>().PlayOneShot(ballsClip);
+            var superFx = Instantiate(Resources.Load("SuperEffect"), transform.position, Quaternion.identity) as GameObject;
+            superFx.transform.parent = transform;
+            Destroy(superFx, 0.4f);
             updateUI();
         }
 
