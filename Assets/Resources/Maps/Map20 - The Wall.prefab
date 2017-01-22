@@ -1299,7 +1299,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208050493230814}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -0.01, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4592827596297156}
@@ -1799,7 +1799,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050953363520210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0.01, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4592827596297156}
@@ -2569,6 +2569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 40
   firstPeriod: 20
+  spawnType: 
 --- !u!114 &114432872628833198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2582,6 +2583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 15
   firstPeriod: 67.5
+  spawnType: 
 --- !u!114 &114578787373116306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2595,6 +2597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 40
   firstPeriod: 80
+  spawnType: 
 --- !u!114 &114693836846170216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2608,6 +2611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 40
   firstPeriod: 80
+  spawnType: 
 --- !u!114 &114710219922368018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2621,6 +2625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 15
   firstPeriod: 15
+  spawnType: 
 --- !u!114 &114851159841514612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2634,6 +2639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 20
   firstPeriod: 50
+  spawnType: 
 --- !u!114 &114938841137767436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2647,6 +2653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 20
   firstPeriod: 50
+  spawnType: 
 --- !u!114 &114946699918132490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2660,6 +2667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   period: 40
   firstPeriod: 20
+  spawnType: 
 --- !u!212 &212007738391007686
 SpriteRenderer:
   m_ObjectHideFlags: 1

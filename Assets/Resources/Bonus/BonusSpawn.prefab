@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPeriod: 10
   firstPeriod: 10
+  spawnType: 
 --- !u!212 &212277814058100814
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,7 +86,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4dc958e9959096441b970f73978bb42d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3b2067e7d97edf04bbda59fa7d3d6bea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
