@@ -25,7 +25,12 @@ public class MenuSelect : MonoBehaviour
     {
         if (currentMap == null)
         {
-            showCurrentMap();
+            if (Input.anyKey)
+            {
+                var howTo  = GameObject.FindGameObjectWithTag("HowTo");
+                Destroy(howTo);
+                showCurrentMap();
+            }
         }
         float horizontal = Input.GetAxis("P1_Horizontal");
         float vertical = Input.GetAxis("P1_Vertical");
