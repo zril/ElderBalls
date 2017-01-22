@@ -26,10 +26,8 @@ public class Arena : MonoBehaviour {
         var player2 = Instantiate(Resources.Load("Player"), spawnPlayer2.transform.position, Quaternion.identity) as GameObject;
         player2.GetComponent<Player>().playerNumber = 2;
         player2.transform.position = new Vector3(player2.transform.position.x, player2.transform.position.y, -1);
-        var goal1 = Instantiate(Resources.Load("Goal"), spawnGoal1.transform.position, Quaternion.identity) as GameObject;
-        goal1.GetComponent<Goal>().playerNumber = 1;
-        var goal2 = Instantiate(Resources.Load("Goal"), spawnGoal2.transform.position, Quaternion.identity) as GameObject;
-        goal2.GetComponent<Goal>().playerNumber = 2;
+        var goal1 = Instantiate(Resources.Load("Goal1"), spawnGoal1.transform.position, Quaternion.identity) as GameObject;
+        var goal2 = Instantiate(Resources.Load("Goal2"), spawnGoal2.transform.position, Quaternion.identity) as GameObject;
         var moveLimit1 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit1.transform.position, Quaternion.identity) as GameObject;
         moveLimit1.GetComponent<MoveLimit>().playerNumber = 1;
         var moveLimit2 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit2.transform.position, Quaternion.identity) as GameObject;
