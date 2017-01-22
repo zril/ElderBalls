@@ -186,6 +186,7 @@ public class TriggerBall : MonoBehaviour
             {
                 fx.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Trigger/splash_6") as RuntimeAnimatorController;
                 fx.transform.localScale *= 1.5f;
+                fx.GetComponent<SpriteRenderer>().color = Color.black;
             }
             
             Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
