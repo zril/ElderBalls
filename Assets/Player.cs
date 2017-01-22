@@ -77,8 +77,8 @@ public class Player : MonoBehaviour
             currentAngle = new Vector3(-1, 0);
             GetComponent<AudioSource>().pitch += pitchModifier;
         }
-        placeClip = Resources.Load<AudioClip>("Sounds/Throw1 - Dark Short");
-        triggerClip = Resources.Load<AudioClip>("Sounds/Throw2 - Dark Short");
+        placeClip = Resources.Load<AudioClip>("Sounds/ThrowBomb");
+        triggerClip = Resources.Load<AudioClip>("Sounds/ThrowPotion");
         gameOverClip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;

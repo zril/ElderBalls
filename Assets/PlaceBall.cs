@@ -31,7 +31,7 @@ public class PlaceBall : MonoBehaviour {
         triggerTimer = 0;
         transform.GetComponent<Rigidbody2D>().velocity = transform.up * startSpeed;
         collideClip = Resources.Load<AudioClip>("Sounds/BallCollision");
-        detonateClip = Resources.Load<AudioClip>("Sounds/Boom1 - Dark");
+        detonateClip = Resources.Load<AudioClip>("Sounds/BoomBomb");
     }
 	
 	// Update is called once per frame
