@@ -15,12 +15,19 @@ public class PlaceBall : MonoBehaviour {
     public float goalBounceModifier = 2.0f;
     public float maxSpeed = 20.0f;
     public float audioPitchRange = 0.2f;
-    
+
+
+    public bool magnetic = false;
+    public float magnetRadius = 2.0f;
+    public float magnetAttract = 0.2f;
+    public float magnetTriggerMaxTimer = 3.0f;
+
 
 
     public int playerNumber = 1;
 
     private bool alive = true;
+    private float magnetTimer;
     private float triggerTimer;
     private bool trigger = false;
     private AudioClip collideClip;
@@ -36,6 +43,10 @@ public class PlaceBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(magnetic)
+        {
+            GetComponent<Rigidbody2D>().mass = 100.0f;
+        }
         /*
         transform.localPosition += transform.up * Time.deltaTime * startSpeed;
         speed -= (frictionBase + friction * speed) * Time.deltaTime;
@@ -58,6 +69,28 @@ public class PlaceBall : MonoBehaviour {
         if (triggerTimer > triggerTime)
         {
             Detonate();
+        }
+
+        //Super Ballz
+        if(magnetic && alive)
+        {
+            //attract
+            var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
+            foreach (GameObject ball in balls)
+            {
+                var p1 = new Vector2(ball.transform.position.x, ball.transform.position.y);
+                var p2 = new Vector2(transform.position.x, transform.position.y);
+                if (Vector3.Distance(p1, p2) < magnetRadius && Vector3.Distance(p1, p2) > 0)
+                {
+                    ball.GetComponent<Rigidbody2D>().velocity += (p2 - p1).normalized * magnetAttract;
+                }
+            }
+
+            magnetTimer += Time.deltaTime;
+            if(magnetTimer >= magnetTriggerMaxTimer )
+            {
+                Trigger();
+            }
         }
     }
 
@@ -109,7 +142,11 @@ public class PlaceBall : MonoBehaviour {
     {
         if (other.gameObject.tag == "PlaceBall")
         {
-            if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
+            if(magnetic)
+            {
+                other.rigidbody.velocity = new Vector2();
+            }
+            else if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
             {
                 GetComponent<AudioSource>().PlayOneShot(collideClip);
                 GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * ballBounceModifier;
