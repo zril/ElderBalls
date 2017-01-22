@@ -19,7 +19,7 @@ public class BonusSpawn : MonoBehaviour {
 
         if (spawnTimer < 0)
         {
-            spawnTimer += spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f);
+            spawnTimer += spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
             Spawn();
         }
     }
