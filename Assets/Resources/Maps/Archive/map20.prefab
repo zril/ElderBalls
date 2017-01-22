@@ -133,6 +133,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4446609306332956}
+  - component: {fileID: 114308518257299718}
   m_Layer: 0
   m_Name: map20
   m_TagString: Untagged
@@ -148,6 +149,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4848856703409454}
+  - component: {fileID: 114073357770495424}
   m_Layer: 0
   m_Name: BonusEvent
   m_TagString: SpawnEventSpawn
@@ -197,6 +199,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4340978594546804}
+  - component: {fileID: 114421441863897574}
   m_Layer: 0
   m_Name: BonusSpawn
   m_TagString: SpawnBonusSpawn
@@ -725,6 +728,42 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!114 &114073357770495424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373650850685488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cb065d2d8ab564e93683e03a5ab79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 10
+--- !u!114 &114308518257299718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1355116072726618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cb065d2d8ab564e93683e03a5ab79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 10
+--- !u!114 &114421441863897574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578259767844614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cb065d2d8ab564e93683e03a5ab79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 5
 --- !u!212 &212041826898028598
 SpriteRenderer:
   m_ObjectHideFlags: 1

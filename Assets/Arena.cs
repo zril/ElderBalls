@@ -37,13 +37,26 @@ public class Arena : MonoBehaviour {
 
         foreach(GameObject spawnbonus in spawnBonusList)
         {
-            Instantiate(Resources.Load("Bonus/BonusSpawn"), spawnbonus.transform.position, Quaternion.identity);
+            var spawn = Instantiate(Resources.Load("Bonus/BonusSpawn"), spawnbonus.transform.position, Quaternion.identity) as GameObject;
+            var param = spawnbonus.GetComponent<SpawnParam>();
+            if (param != null)
+            {
+                spawn.GetComponent<BonusSpawn>().spawnPeriod = param.period;
+            }
+
             Destroy(spawnbonus, 0.2f);
         }
 
         foreach (GameObject spawnevent in spawnEventList)
         {
-            Instantiate(Resources.Load("Event/EventSpawn"), spawnevent.transform.position, Quaternion.identity);
+            var spawn = Instantiate(Resources.Load("Event/EventSpawn"), spawnevent.transform.position, Quaternion.identity) as GameObject;
+
+            var param = spawnevent.GetComponent<SpawnParam>();
+            if (param != null)
+            {
+                spawn.GetComponent<EventSpawn>().spawnPeriod = param.period;
+            }
+
             Destroy(spawnevent, 0.2f);
         }
 
