@@ -18,6 +18,8 @@ TagManager:
   - MoveLimit1
   - MoveLimit2
   - MoveLimit
+  - SpawnBonus
+  - SpawnBonusSpawn
   layers:
   - Default
   - TransparentFX

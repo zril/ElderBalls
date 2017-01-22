@@ -17,6 +17,8 @@ public class Arena : MonoBehaviour {
         var spawnMoveLimit1 = GameObject.FindGameObjectWithTag("MoveLimit1");
         var spawnMoveLimit2 = GameObject.FindGameObjectWithTag("MoveLimit2");
 
+        var spawnBonusList = GameObject.FindGameObjectsWithTag("SpawnBonusSpawn");
+
         var player1 = Instantiate(Resources.Load("Player"), spawnPlayer1.transform.position, Quaternion.identity) as GameObject;
         player1.GetComponent<Player>().playerNumber = 1;
         player1.transform.position = new Vector3(player1.transform.position.x, player1.transform.position.y, -1);
@@ -32,13 +34,19 @@ public class Arena : MonoBehaviour {
         var moveLimit2 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit2.transform.position, Quaternion.identity) as GameObject;
         moveLimit2.GetComponent<MoveLimit>().playerNumber = 2;
 
+        foreach(GameObject spawnbonus in spawnBonusList)
+        {
+            Instantiate(Resources.Load("BonusSpawn"), spawnbonus.transform.position, Quaternion.identity);
+            Destroy(spawnbonus, 0.2f);
+        }
+
         Destroy(spawnPlayer1);
         Destroy(spawnPlayer2);
         Destroy(spawnGoal1);
         Destroy(spawnGoal2);
         Destroy(spawnMoveLimit1);
         Destroy(spawnMoveLimit2);
-        
+
         GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Music/track" + Mathf.CeilToInt(Random.value * 5));
         GetComponent<AudioSource>().Play();
     }
