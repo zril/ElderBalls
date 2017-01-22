@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     private AudioClip pushClip;
     private AudioClip chargeClip;
     private AudioClip gameOverClip;
+    private AudioClip ballsClip;
     private string superString;
 
     private GameObject chargeFx;
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
             currentAngle = new Vector3(-1, 0);
             GetComponent<AudioSource>().pitch += pitchModifier;
         }
+        ballsClip = Resources.Load<AudioClip>("Sounds/Balls");
         placeClip = Resources.Load<AudioClip>("Sounds/ThrowBomb");
         triggerClip = Resources.Load<AudioClip>("Sounds/ThrowPotion");
         gameOverClip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
@@ -251,6 +253,7 @@ public class Player : MonoBehaviour
         {
             super = 0;
             superActive = true;
+            GetComponent<AudioSource>().PlayOneShot(ballsClip);
             updateUI();
         }
 
