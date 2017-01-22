@@ -43,6 +43,7 @@ public class Arena : MonoBehaviour {
             {
                 spawn.GetComponent<BonusSpawn>().spawnPeriod = param.period;
                 spawn.GetComponent<BonusSpawn>().firstPeriod = param.firstPeriod;
+                spawn.GetComponent<BonusSpawn>().spawnType = param.spawnType;
             }
 
             Destroy(spawnbonus, 0.2f);
@@ -57,6 +58,7 @@ public class Arena : MonoBehaviour {
             {
                 spawn.GetComponent<EventSpawn>().spawnPeriod = param.period;
                 spawn.GetComponent<EventSpawn>().firstPeriod = param.firstPeriod;
+                spawn.GetComponent<EventSpawn>().spawnType = param.spawnType;
             }
 
             Destroy(spawnevent, 0.2f);

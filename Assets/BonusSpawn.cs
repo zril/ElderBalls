@@ -7,6 +7,7 @@ public class BonusSpawn : MonoBehaviour {
     private float spawnTimer;
     public float spawnPeriod = 10f;
     public float firstPeriod = 10f;
+    public string spawnType = "";
 
     // Use this for initialization
     void Start () {
@@ -26,16 +27,40 @@ public class BonusSpawn : MonoBehaviour {
 
     private void Spawn()
     {
-        var random = Random.value;
-        if (random < 0.33f)
+        bool type = false;
+        switch (spawnType)
         {
-            Instantiate(Resources.Load("Bonus/BonusBomb"), transform.position, Quaternion.identity);
-        } else if (random < 0.66f)
+            case "bomb":
+                Instantiate(Resources.Load("Bonus/BonusBomb"), transform.position, Quaternion.identity);
+                type = true;
+                break;
+            case "speed":
+                Instantiate(Resources.Load("Bonus/BonusSpeed"), transform.position, Quaternion.identity);
+                type = true;
+                break;
+            case "power":
+                Instantiate(Resources.Load("Bonus/BonusPower"), transform.position, Quaternion.identity);
+                type = true;
+                break;
+            default:
+                break;
+        }
+
+        if (!type)
         {
-            Instantiate(Resources.Load("Bonus/BonusSpeed"), transform.position, Quaternion.identity);
-        } else
-        {
-            Instantiate(Resources.Load("Bonus/BonusPower"), transform.position, Quaternion.identity);
+            var random = Random.value;
+            if (random < 0.33f)
+            {
+                Instantiate(Resources.Load("Bonus/BonusBomb"), transform.position, Quaternion.identity);
+            }
+            else if (random < 0.66f)
+            {
+                Instantiate(Resources.Load("Bonus/BonusSpeed"), transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(Resources.Load("Bonus/BonusPower"), transform.position, Quaternion.identity);
+            }
         }
     }
 }

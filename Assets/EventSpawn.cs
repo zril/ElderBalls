@@ -7,6 +7,7 @@ public class EventSpawn : MonoBehaviour {
     private float spawnTimer;
     public float spawnPeriod = 10f;
     public float firstPeriod = 10f;
+    public string spawnType = "";
 
     private bool freeze = false;
 
@@ -35,21 +36,37 @@ public class EventSpawn : MonoBehaviour {
     private void Spawn()
     {
         GameObject ev = null;
-        var random = Random.value;
-        if (random < 0.33f)
+
+        switch (spawnType)
         {
-            ev = Instantiate(Resources.Load("Event/EventTrigger"), transform.position, Quaternion.identity) as GameObject;
-            ev.GetComponent<Event>().eventType = "trigger";
+            case "trigger":
+                ev = Instantiate(Resources.Load("Event/EventTrigger"), transform.position, Quaternion.identity) as GameObject;
+                break;
+            case "bomb":
+                ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
+                break;
+            case "explosion":
+                ev = Instantiate(Resources.Load("Event/EventExplosion"), transform.position, Quaternion.identity) as GameObject;
+                break;
+            default:
+                break;
         }
-        else if (random < 0.66f)
+
+        if (ev == null)
         {
-            ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
-            ev.GetComponent<Event>().eventType = "bomb";
-        }
-        else
-        {
-            ev = Instantiate(Resources.Load("Event/EventExplosion"), transform.position, Quaternion.identity) as GameObject;
-            ev.GetComponent<Event>().eventType = "explosion";
+            var random = Random.value;
+            if (random < 0.33f)
+            {
+                ev = Instantiate(Resources.Load("Event/EventTrigger"), transform.position, Quaternion.identity) as GameObject;
+            }
+            else if (random < 0.66f)
+            {
+                ev = Instantiate(Resources.Load("Event/EventBomb"), transform.position, Quaternion.identity) as GameObject;
+            }
+            else
+            {
+                ev = Instantiate(Resources.Load("Event/EventExplosion"), transform.position, Quaternion.identity) as GameObject;
+            }
         }
 
         ev.GetComponent<Event>().SetParent(this);
