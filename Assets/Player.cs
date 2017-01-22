@@ -171,15 +171,19 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
+            GetComponent<AudioSource>().PlayOneShot(placeClip);
             if (superActive)
             {
-                var superElm = Instantiate(Resources.Load("Supers/" + superString), Vector3.forward + transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
+                var superElm = Instantiate(Resources.Load("Supers/" + superString), transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
                 var superScript = superElm.GetComponent<SuperBase>();
+                superScript.bomb = true;
+                superScript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer, ballSpeedMax);
+                superScript.playerNumber = playerNumber;
+                superScript.angle = currentAngle;
                 superActive = false;
             }
             else
             {
-                GetComponent<AudioSource>().PlayOneShot(placeClip);
                 var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + currentAngle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
                 var ballscript = ball.GetComponent<PlaceBall>();
                 ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer, ballSpeedMax);
@@ -215,6 +219,7 @@ public class Player : MonoBehaviour
             {
                 var superElm = Instantiate(Resources.Load("Supers/" + superString),transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
                 var superScript = superElm.GetComponent<SuperBase>();
+                superScript.playerNumber = playerNumber;
                 superScript.knife = true;
                 superActive = false;
             }
@@ -234,7 +239,7 @@ public class Player : MonoBehaviour
             updateUI();
         }
 
-        if (IsPlaceButton && triggerChargeTimer == 0 && pushChargeTimer == 0 && placeBallCount > 0)
+        if (IsPlaceButton && triggerChargeTimer == 0 && pushChargeTimer == 0 && (placeBallCount > 0 || superActive))
         {
             if (placeChargeTimer == 0)
             {
@@ -248,7 +253,7 @@ public class Player : MonoBehaviour
             placeChargeTimer = 0;
         }
 
-        if (IsTriggerButton && placeChargeTimer == 0 && pushChargeTimer == 0 && triggerBallCount > 0)
+        if (IsTriggerButton && placeChargeTimer == 0 && pushChargeTimer == 0 && (triggerBallCount > 0 || superActive))
         {
             if (triggerChargeTimer == 0)
             {
