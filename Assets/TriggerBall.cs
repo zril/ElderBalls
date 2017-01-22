@@ -182,6 +182,12 @@ public class TriggerBall : MonoBehaviour
             Destroy(GetComponent<SpriteRenderer>());
             var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
             fx.transform.localScale *= triggerRadius;
+            if (isBlackHole)
+            {
+                fx.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Trigger/splash_6") as RuntimeAnimatorController;
+                fx.transform.localScale *= 1.5f;
+            }
+            
             Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
         }
         else if (!GetComponent<AudioSource>().isPlaying)
