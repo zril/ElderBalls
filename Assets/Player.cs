@@ -268,6 +268,14 @@ public class Player : MonoBehaviour
             {
                 visibleText.text = "Faut partir maintenant !";
             }
+            if (hp < -50)
+            {
+                visibleText.text = "We have to go deeper...";
+            }
+            if (hp < -60)
+            {
+                visibleText.text = "On se fait un Kamoulox ?";
+            }
         }
         
         //traitement
