@@ -9,7 +9,7 @@ public class BonusSpawn : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        spawnTimer = spawnPeriod * (1 + (Random.value - 0.5f) * 2);
+        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 2));
     }
 	
 	// Update is called once per frame

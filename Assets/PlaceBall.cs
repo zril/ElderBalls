@@ -120,7 +120,8 @@ public class PlaceBall : MonoBehaviour {
                     playerScript.AddPlaceBall();
                 }
             }
-            Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity);
+            var wave = Instantiate(Resources.Load("ShockWave"), transform.position, Quaternion.identity) as GameObject;
+            wave.GetComponent<Shockwave>().SetPowerFactor(powerFactor);
             Vector3 cratpos = transform.position;
             cratpos.z++;
             var crat = Instantiate(Resources.Load("Cratere"), cratpos, Quaternion.identity);

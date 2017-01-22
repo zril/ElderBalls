@@ -190,6 +190,7 @@ public class Player : MonoBehaviour
                 var ballscript = ball.GetComponent<PlaceBall>();
                 ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer, ballSpeedMax);
                 ballscript.playerNumber = playerNumber;
+                ballscript.SetPowerFactor(bombPowerFactor);
                 RemovePlaceBall();
             }
             Destroy(chargeFx);
