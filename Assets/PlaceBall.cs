@@ -108,8 +108,9 @@ public class PlaceBall : MonoBehaviour {
         if (alive)
         {
             alive = false;
+            GetComponent<AudioSource>().clip = detonateClip;
             GetComponent<AudioSource>().pitch += (Random.value - 0.5f) * audioPitchRange * 2;
-            GetComponent<AudioSource>().PlayOneShot(detonateClip);
+            GetComponent<AudioSource>().Play();
             var players = GameObject.FindGameObjectsWithTag("Player");
             foreach (GameObject player in players)
             {
@@ -150,18 +151,21 @@ public class PlaceBall : MonoBehaviour {
             }
             else if (GetComponent<Rigidbody2D>().velocity.magnitude < other.rigidbody.velocity.magnitude)
             {
-                GetComponent<AudioSource>().PlayOneShot(collideClip);
+                GetComponent<AudioSource>().clip = collideClip;
+                GetComponent<AudioSource>().Play();
                 GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * ballBounceModifier;
             }
         }
         else if (other.gameObject.tag == "Wall")
         {
-            GetComponent<AudioSource>().PlayOneShot(collideClip);
+            GetComponent<AudioSource>().clip = collideClip;
+            GetComponent<AudioSource>().Play();
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * wallBounceModifier;
         }
         else if (other.gameObject.tag == "Goal")
         {
-            GetComponent<AudioSource>().PlayOneShot(collideClip);
+            GetComponent<AudioSource>().clip = collideClip;
+            GetComponent<AudioSource>().Play();
             GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity + GetComponent<Rigidbody2D>().velocity.normalized * goalBounceModifier;
         }    
     }
