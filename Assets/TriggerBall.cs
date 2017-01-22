@@ -163,6 +163,17 @@ public class TriggerBall : MonoBehaviour
                     }
                 }
 
+                var events = GameObject.FindGameObjectsWithTag("Event");
+                foreach (GameObject ev in events)
+                {
+                    var p1 = new Vector2(ev.transform.position.x, ev.transform.position.y);
+                    var p2 = new Vector2(transform.position.x, transform.position.y);
+                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    {
+                        ev.GetComponent<Event>().Activate();
+                    }
+                }
+
             }
 
             Destroy(GetComponent<SpriteRenderer>());
@@ -173,17 +184,6 @@ public class TriggerBall : MonoBehaviour
         else if(!GetComponent<AudioSource>().isPlaying)
         {
             GameObject.Destroy(gameObject);
-        }
-
-        var events = GameObject.FindGameObjectsWithTag("Event");
-        foreach (GameObject ev in events)
-        {
-            var p1 = new Vector2(ev.transform.position.x, ev.transform.position.y);
-            var p2 = new Vector2(transform.position.x, transform.position.y);
-            if (Vector3.Distance(p1, p2) < triggerRadius)
-            {
-                ev.GetComponent<Event>().Activate();
-            }
         }
     }
 

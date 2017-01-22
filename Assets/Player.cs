@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     string superButton;
 
     private int maxMaxPlaceBalls = 10;
+    private float pickupRadius = 0.4f;
 
 
     private GameObject directionElement;
@@ -306,7 +307,28 @@ public class Player : MonoBehaviour
             pushChargeTimer = 0;
         }
 
+        //pickup
+        var bonuses = GameObject.FindGameObjectsWithTag("Bonus");
+        foreach (GameObject bonus in bonuses)
+        {
+            var p1 = new Vector2(bonus.transform.position.x, bonus.transform.position.y);
+            var p2 = new Vector2(transform.position.x, transform.position.y);
+            if (Vector3.Distance(p1, p2) < pickupRadius)
+            {
+                bonus.GetComponent<Bonus>().Apply(playerNumber);
+            }
+        }
 
+        var events = GameObject.FindGameObjectsWithTag("Event");
+        foreach (GameObject ev in events)
+        {
+            var p1 = new Vector2(ev.transform.position.x, ev.transform.position.y);
+            var p2 = new Vector2(transform.position.x, transform.position.y);
+            if (Vector3.Distance(p1, p2) < pickupRadius)
+            {
+                ev.GetComponent<Event>().Activate();
+            }
+        }
     }
 
     public void Damage()
