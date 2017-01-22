@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TriggerBall : MonoBehaviour {
+public class TriggerBall : MonoBehaviour
+{
 
     public float triggerRadius = 1f;
     public float throwTime = 1f;
@@ -17,7 +18,7 @@ public class TriggerBall : MonoBehaviour {
     public float blackHoleTriggerMaxTimer = 1.0f;
     public float blackHoleRadius = 7.0f;
     public float blackHoleMaxAttract = 1.0f;
-    
+
 
     private float throwTimer;
     private Vector3 originPos;
@@ -26,23 +27,30 @@ public class TriggerBall : MonoBehaviour {
 
     private float triggerTime;
     private float blackHoleTimer;
+    private bool alive = true;
 
 
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         originPos = transform.position;
         throwTimer = throwTime;
         transform.localScale = Vector3.one * baseScale;
         if (isBlackHole)
             triggerMaxTimer = blackHoleTriggerMaxTimer;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (throwTimer >= 0)
         {
             throwTimer -= Time.deltaTime;
+            if(throwTimer < 0)
+            {
+                GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/DetonatorLand"));
+            }
             transform.position = Vector3.Lerp(targetPos, originPos, throwTimer / throwTime);
 
             var scale = 1 + 5 * (0.25f - Mathf.Pow((1 / throwTime) * (throwTimer - throwTime / 2), 2));
@@ -61,7 +69,7 @@ public class TriggerBall : MonoBehaviour {
             {
                 if (isBlackHole)
                 {
-                    if(!blackHoleActive)
+                    if (!blackHoleActive)
                     {
                         Detonate();
                     }
@@ -79,7 +87,7 @@ public class TriggerBall : MonoBehaviour {
                     }
 
                     blackHoleTimer += Time.deltaTime;
-                    if(blackHoleTimer >= blackHoleMaxTimer )
+                    if (blackHoleTimer >= blackHoleMaxTimer)
                     {
                         GameObject.Destroy(gameObject);
                     }
@@ -87,9 +95,8 @@ public class TriggerBall : MonoBehaviour {
                 }
                 else
                 {
-                    GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/DetonatorLand"));
-                    GameObject.Destroy(gameObject);
                     Detonate();
+
                 }
             }
         }
@@ -97,56 +104,68 @@ public class TriggerBall : MonoBehaviour {
 
     private void Detonate()
     {
-        if (isBlackHole)
+        if (alive)
         {
-            blackHoleActive = true;
-            Destroy(GetComponent<SpriteRenderer>());
-        }
-        else
-        {
-            var players = GameObject.FindGameObjectsWithTag("Player");
-            Player targetPlayer = null;
-            foreach (GameObject player in players)
+            alive = false;
+            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BoomPotion");
+            GetComponent<AudioSource>().Play();
+
+            if (isBlackHole)
             {
-                var playerScript = player.GetComponent<Player>();
-                if (player.GetComponent<Player>().playerNumber == playerNumber)
-                {
-                    targetPlayer = playerScript;
-                    playerScript.AddTriggerBall();
-                }
+                blackHoleActive = true;
             }
-
-            var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
-            foreach (GameObject ball in balls)
+            else
             {
-                var p1 = new Vector2(ball.transform.position.x, ball.transform.position.y);
-                var p2 = new Vector2(transform.position.x, transform.position.y);
-
-                if (Vector3.Distance(p1, p2) < triggerRadius)
+                var players = GameObject.FindGameObjectsWithTag("Player");
+                Player targetPlayer = null;
+                foreach (GameObject player in players)
                 {
-                    if (targetPlayer != null)
+                    var playerScript = player.GetComponent<Player>();
+                    if (player.GetComponent<Player>().playerNumber == playerNumber)
                     {
-                        targetPlayer.addSuper(triggerSuperIncr);
+                        targetPlayer = playerScript;
+                        playerScript.AddTriggerBall();
                     }
-                    ball.GetComponent<PlaceBall>().Trigger();
                 }
-            }
-        }
 
-        var bonuses = GameObject.FindGameObjectsWithTag("Bonus");
-        foreach (GameObject bonus in bonuses)
+                var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
+                foreach (GameObject ball in balls)
+                {
+                    var p1 = new Vector2(ball.transform.position.x, ball.transform.position.y);
+                    var p2 = new Vector2(transform.position.x, transform.position.y);
+
+                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    {
+                        if (targetPlayer != null)
+                        {
+                            targetPlayer.addSuper(triggerSuperIncr);
+                        }
+                        ball.GetComponent<PlaceBall>().Trigger();
+                    }
+                }
+
+                var bonuses = GameObject.FindGameObjectsWithTag("Bonus");
+                foreach (GameObject bonus in bonuses)
+                {
+                    var p1 = new Vector2(bonus.transform.position.x, bonus.transform.position.y);
+                    var p2 = new Vector2(transform.position.x, transform.position.y);
+                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    {
+                        bonus.GetComponent<Bonus>().Apply(playerNumber);
+                    }
+                }
+
+            }
+
+            Destroy(GetComponent<SpriteRenderer>());
+            var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
+            fx.transform.localScale *= triggerRadius;
+            Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
+        }
+        else if(!GetComponent<AudioSource>().isPlaying)
         {
-            var p1 = new Vector2(bonus.transform.position.x, bonus.transform.position.y);
-            var p2 = new Vector2(transform.position.x, transform.position.y);
-            if (Vector3.Distance(p1, p2) < triggerRadius)
-            {
-                bonus.GetComponent<Bonus>().Apply(playerNumber);
-            }
+            GameObject.Destroy(gameObject);
         }
-
-        var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
-        fx.transform.localScale *= triggerRadius;
-        Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
 
     }
 
