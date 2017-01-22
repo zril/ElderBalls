@@ -394,6 +394,14 @@ public class Player : MonoBehaviour
             {
                 visibleSubText.text = "On se fait un Kamoulox ?";
             }
+            if (hp < -100)
+            {
+                visibleSubText.text = "The Game";
+            }
+            if (hp < -150)
+            {
+                visibleSubText.text = "I like trains";
+            }
         }
         
         //traitement
