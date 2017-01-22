@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     private string superString;
 
     private GameObject chargeFx;
+    private GameObject superFx;
 
     private int hp;
     private int super;
@@ -192,6 +193,7 @@ public class Player : MonoBehaviour
                 superScript.playerNumber = playerNumber;
                 superScript.angle = currentAngle;
                 superActive = false;
+                Destroy(superFx);
             }
             else
             {
@@ -217,6 +219,7 @@ public class Player : MonoBehaviour
                 superScript.playerNumber = playerNumber;
                 superScript.angle = currentAngle;
                 superActive = false;
+                Destroy(superFx);
             }
             else
             {
@@ -241,6 +244,7 @@ public class Player : MonoBehaviour
                 superScript.playerNumber = playerNumber;
                 superScript.knife = true;
                 superActive = false;
+                Destroy(superFx);
             }
             else
             {
@@ -256,9 +260,8 @@ public class Player : MonoBehaviour
             super = 0;
             superActive = true;
             GetComponent<AudioSource>().PlayOneShot(ballsClip);
-            var superFx = Instantiate(Resources.Load("SuperEffect"), transform.position, Quaternion.identity) as GameObject;
+            superFx = Instantiate(Resources.Load("SuperEffect"), transform.position, Quaternion.identity) as GameObject;
             superFx.transform.parent = transform;
-            Destroy(superFx, 0.4f);
             updateUI();
         }
 
