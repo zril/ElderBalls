@@ -194,15 +194,19 @@ public class Player : MonoBehaviour
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
+            GetComponent<AudioSource>().PlayOneShot(triggerClip);
             if (superActive)
             {
                 var superElm = Instantiate(Resources.Load("Supers/" + superString), Vector3.forward + transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
                 var superScript = superElm.GetComponent<SuperBase>();
+                superScript.potion = true;
+                superScript.startSpeed = Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer, ballDistMax);
+                superScript.playerNumber = playerNumber;
+                superScript.angle = currentAngle;
                 superActive = false;
             }
             else
             {
-                GetComponent<AudioSource>().PlayOneShot(triggerClip);
                 var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer, ballDistMax));
                 var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
                 var ballscript = ball.GetComponent<TriggerBall>();
