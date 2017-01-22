@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
             yAxis = "P1_Vertical";
             placeButton = "P1_Place";
             triggerButton = "P1_Trigger";
-            pushButton = "P1_Trigger";
+            pushButton = "P1_Push";
             superButton = "P1_Super";
             currentAngle = new Vector3(1, 0);
             GetComponent<AudioSource>().pitch -= pitchModifier;
