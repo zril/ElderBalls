@@ -10,7 +10,7 @@ public class Arena : MonoBehaviour
     private float konamiTimer = 0.0f;
     private float konamiTrigger = 13.95f;
     private float konamiPeriod = 1.39f;
-    private bool hemanLoaded = false;
+    private int hemanLoaded = 0;
 
     // Use this for initialization
     void Start()
@@ -117,12 +117,6 @@ public class Arena : MonoBehaviour
             konamiTimer += Time.deltaTime;
             if (konamiTimer > konamiTrigger)
             {
-                if(!hemanLoaded)
-                {
-                    var posHeman = transform.position;
-                    posHeman.z = -10;
-                    Instantiate(Resources.Load("HeMan"), transform.position, Quaternion.identity);
-                }
 
                 konamiTrigger += konamiPeriod * 2;
 
