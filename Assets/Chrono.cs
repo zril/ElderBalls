@@ -7,9 +7,13 @@ public class Chrono : MonoBehaviour {
 
     private float timer;
 
-	// Use this for initialization
-	void Start () {
+    private float deathTimer;
+    private float deathPeriod = 10f;
+
+    // Use this for initialization
+    void Start () {
         timer = 0;
+        deathTimer = deathPeriod;
     }
 	
 	// Update is called once per frame
@@ -37,5 +41,20 @@ public class Chrono : MonoBehaviour {
         }
         decstr += "" + dec;
         chrono.text = "" + secstr + ":" + decstr;
+
+        MortSubite();
+    }
+
+    private void MortSubite()
+    {
+        if (timer > 120)
+        {
+            deathTimer += Time.deltaTime;
+            if (deathTimer > deathPeriod)
+            {
+                deathTimer -= deathPeriod;
+                Instantiate(Resources.Load("ExplosionSpawner"), transform.position, Quaternion.identity);
+            }
+        }
     }
 }
