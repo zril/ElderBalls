@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
+    private AudioClip pushClip;
+    private AudioClip chargeClip;
     private AudioClip gameOverClip;
     private string superString;
 
@@ -85,6 +87,8 @@ public class Player : MonoBehaviour
         placeClip = Resources.Load<AudioClip>("Sounds/ThrowBomb");
         triggerClip = Resources.Load<AudioClip>("Sounds/ThrowPotion");
         gameOverClip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
+        pushClip = Resources.Load<AudioClip>("Sounds/ThrowPush");
+        chargeClip = Resources.Load<AudioClip>("Sounds/ChargeAttack");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
@@ -173,6 +177,7 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
             GetComponent<AudioSource>().PlayOneShot(placeClip);
             if (superActive)
             {
@@ -197,6 +202,7 @@ public class Player : MonoBehaviour
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
             GetComponent<AudioSource>().PlayOneShot(triggerClip);
             if (superActive)
             {
@@ -222,6 +228,8 @@ public class Player : MonoBehaviour
 
         if (pushUp && pushChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().PlayOneShot(pushClip);
             if (superActive)
             {
                 var superElm = Instantiate(Resources.Load("Supers/" + superString),transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
@@ -251,6 +259,8 @@ public class Player : MonoBehaviour
             if (placeChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/PlaceChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             placeChargeTimer += Time.deltaTime;
             
@@ -265,6 +275,8 @@ public class Player : MonoBehaviour
             if (triggerChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/TriggerChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             triggerChargeTimer += Time.deltaTime;
         }
@@ -278,6 +290,8 @@ public class Player : MonoBehaviour
             if (pushChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/PushChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             pushChargeTimer += Time.deltaTime;
         }
