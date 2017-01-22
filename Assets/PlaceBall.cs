@@ -45,7 +45,7 @@ public class PlaceBall : MonoBehaviour {
         if (magnetic)
         {
             GetComponent<Rigidbody2D>().mass = 100.0f;
-            //GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("PlaceBall/magnet/magnet_0");
+            GetComponent<Animator>().runtimeAnimatorController = Resources.Load("PlaceBall/magnet_0") as RuntimeAnimatorController;
         }
         magneticClip = Resources.Load<AudioClip>("Sounds/SuperMagnet");
     }

@@ -5,6 +5,6 @@ using System.Text;
 
 static class Global
 {
-    public static string arenaName = "map19";
+    public static string arenaName = "map18";
     public static int winner = 0;
 }
