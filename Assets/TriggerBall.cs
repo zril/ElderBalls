@@ -92,4 +92,12 @@ public class TriggerBall : MonoBehaviour {
     {
         targetPos = target;
     }
+
+    public void Reset()
+    {
+        originPos = transform.position;
+        triggerTimer = triggerTime;
+        throwTimer = throwTime;
+        transform.localScale = Vector3.one * baseScale;
+    }
 }
