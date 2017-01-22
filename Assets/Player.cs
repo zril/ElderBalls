@@ -260,6 +260,10 @@ public class Player : MonoBehaviour
             {
                 visibleText.text = "Faut partir maintenant !";
             }
+            if (hp < -30)
+            {
+                visibleText.text = "Je vous dérange pas sinon ?";
+            }
         }
         
         //traitement
