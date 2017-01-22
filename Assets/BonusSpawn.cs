@@ -6,10 +6,11 @@ public class BonusSpawn : MonoBehaviour {
 
     private float spawnTimer;
     public float spawnPeriod = 10f;
+    public float firstPeriod = 10f;
 
-	// Use this for initialization
-	void Start () {
-        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
+    // Use this for initialization
+    void Start () {
+        spawnTimer = firstPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
     }
 	
 	// Update is called once per frame
@@ -18,7 +19,7 @@ public class BonusSpawn : MonoBehaviour {
 
         if (spawnTimer < 0)
         {
-            spawnTimer += spawnPeriod;
+            spawnTimer += spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f);
             Spawn();
         }
     }

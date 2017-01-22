@@ -6,13 +6,14 @@ public class EventSpawn : MonoBehaviour {
 
     private float spawnTimer;
     public float spawnPeriod = 10f;
+    public float firstPeriod = 10f;
 
     private bool freeze = false;
 
     // Use this for initialization
     void Start()
     {
-        spawnTimer = spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
+        spawnTimer = firstPeriod * (1 + ((Random.value - 0.5f) * 0.2f));
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class EventSpawn : MonoBehaviour {
 
             if (spawnTimer < 0)
             {
-                spawnTimer += spawnPeriod;
+                spawnTimer += spawnPeriod * (1 + ((Random.value - 0.5f) * 0.2f);
                 Spawn();
             }
         }
