@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int maxSuper = 100;
     public int damageBlockSuperIncr = 2;
     public int maxPlaceBalls = 5;
+    public float bombPowerFactor = 1;
 
     string xAxis;
     string yAxis;
@@ -40,6 +41,8 @@ public class Player : MonoBehaviour
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
+    private AudioClip pushClip;
+    private AudioClip chargeClip;
     private AudioClip gameOverClip;
     private string superString;
 
@@ -50,6 +53,7 @@ public class Player : MonoBehaviour
     private int placeBallCount;
     private int triggerBallCount;
     private bool superActive;
+    private bool gameOverTriggered;
 
     // Use this for initialization
     void Start()
@@ -83,6 +87,8 @@ public class Player : MonoBehaviour
         placeClip = Resources.Load<AudioClip>("Sounds/ThrowBomb");
         triggerClip = Resources.Load<AudioClip>("Sounds/ThrowPotion");
         gameOverClip = Resources.Load<AudioClip>("Sounds/BALLS2BALLS - Dark");
+        pushClip = Resources.Load<AudioClip>("Sounds/ThrowPush");
+        chargeClip = Resources.Load<AudioClip>("Sounds/ChargeAttack");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
@@ -171,6 +177,7 @@ public class Player : MonoBehaviour
 
         if (placeUp && placeChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
             GetComponent<AudioSource>().PlayOneShot(placeClip);
             if (superActive)
             {
@@ -188,12 +195,14 @@ public class Player : MonoBehaviour
                 var ballscript = ball.GetComponent<PlaceBall>();
                 ballscript.startSpeed = Mathf.Min(ballSpeedBase + ballSpeedFactor * placeChargeTimer, ballSpeedMax);
                 ballscript.playerNumber = playerNumber;
+                ballscript.SetPowerFactor(bombPowerFactor);
                 RemovePlaceBall();
             }
             Destroy(chargeFx);
         }
         if (triggerUp && triggerChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
             GetComponent<AudioSource>().PlayOneShot(triggerClip);
             if (superActive)
             {
@@ -219,6 +228,8 @@ public class Player : MonoBehaviour
 
         if (pushUp && pushChargeTimer > 0)
         {
+            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().PlayOneShot(pushClip);
             if (superActive)
             {
                 var superElm = Instantiate(Resources.Load("Supers/" + superString),transform.position, Quaternion.Euler(0, 0, rad * 180 / Mathf.PI)) as GameObject;
@@ -248,6 +259,8 @@ public class Player : MonoBehaviour
             if (placeChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/PlaceChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             placeChargeTimer += Time.deltaTime;
             
@@ -262,6 +275,8 @@ public class Player : MonoBehaviour
             if (triggerChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/TriggerChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             triggerChargeTimer += Time.deltaTime;
         }
@@ -275,6 +290,8 @@ public class Player : MonoBehaviour
             if (pushChargeTimer == 0)
             {
                 chargeFx = Instantiate(Resources.Load("Charge/PushChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                GetComponent<AudioSource>().clip = chargeClip;
+                GetComponent<AudioSource>().Play();
             }
             pushChargeTimer += Time.deltaTime;
         }
@@ -300,7 +317,12 @@ public class Player : MonoBehaviour
             var canvas = GameObject.FindGameObjectWithTag("Canvas");
             var gameOverText = canvas.transform.FindChild("GameOver");
             var visibleText = gameOverText.GetComponentInChildren<Text>();
-            GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+            if (!gameOverTriggered)
+            {
+                gameOverTriggered = true;
+                GetComponent<AudioSource>().clip = gameOverClip;
+                GetComponent<AudioSource>().Play();
+            }
             if (playerNumber == 1)
             {
                 visibleText.text = "Player 2 wins !";
@@ -341,6 +363,10 @@ public class Player : MonoBehaviour
     public void AddPlaceBall()
     {
         placeBallCount++;
+        if (placeBallCount > maxMaxPlaceBalls)
+        {
+            placeBallCount = maxMaxPlaceBalls;
+        }
         updateUI();
     }
 

@@ -6,12 +6,16 @@ public class Shockwave : MonoBehaviour {
 
     List<GameObject> parts;
 
+    private float powerFactor = 1;
+
 	// Use this for initialization
 	void Start () {
         parts = new List<GameObject>();
         for (int i = 0; i < 360; i += 10)
         {
-            parts.Add(Instantiate(Resources.Load("ShockwavePart"), transform.position, Quaternion.Euler(0, 0, i)) as GameObject);
+            var part = Instantiate(Resources.Load("ShockwavePart"), transform.position, Quaternion.Euler(0, 0, i)) as GameObject;
+            part.GetComponent<ShockwavePart>().SetPowerFactor(powerFactor);
+            parts.Add(part);
         }
         Destroy(gameObject, 1f);
     }
@@ -20,4 +24,9 @@ public class Shockwave : MonoBehaviour {
 	void Update () {
 
 	}
+
+    public void SetPowerFactor(float factor)
+    {
+        powerFactor = factor;
+    }
 }

@@ -8,6 +8,8 @@ public class ShockwavePart : MonoBehaviour
     public float lifeTime = 0.5f;
     public float pushSpeed = 0.1f;
 
+
+    private float powerFactor = 1;
     private float timer;
 
     // Use this for initialization
@@ -25,8 +27,8 @@ public class ShockwavePart : MonoBehaviour
             Kill();
         }
 
-        transform.localPosition += transform.up * Time.deltaTime * speed;
-        transform.localScale += new Vector3(0.15f, 0, 0) * Time.deltaTime * speed;
+        transform.localPosition += transform.up * Time.deltaTime * speed * powerFactor;
+        transform.localScale += new Vector3(0.15f, 0, 0) * Time.deltaTime * speed * powerFactor;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -55,5 +57,10 @@ public class ShockwavePart : MonoBehaviour
     public void Kill()
     {
         GameObject.Destroy(gameObject);
+    }
+
+    public void SetPowerFactor(float factor)
+    {
+        powerFactor = factor;
     }
 }

@@ -171,8 +171,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerRadius: 1
   throwTime: 1
-  triggerTime: 0.2
+  triggerMaxTimer: 0.2
+  triggerSuperIncr: 1
   playerNumber: 1
+  isBlackHole: 0
+  blackHoleActive: 0
+  blackHoleMaxTimer: 5
+  blackHoleTriggerMaxTimer: 1
+  blackHoleRadius: 7
+  blackHoleMaxAttract: 0.05
 --- !u!212 &212327305559039488
 SpriteRenderer:
   m_ObjectHideFlags: 1

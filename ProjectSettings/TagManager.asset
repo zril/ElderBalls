@@ -20,6 +20,7 @@ TagManager:
   - MoveLimit
   - SpawnBonus
   - SpawnBonusSpawn
+  - Bonus
   layers:
   - Default
   - TransparentFX
@@ -29,8 +30,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Wall
+  - Bonus
   - 
   - 
   - 

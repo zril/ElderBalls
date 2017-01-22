@@ -132,9 +132,22 @@ public class TriggerBall : MonoBehaviour {
                 }
             }
         }
+
+        var bonuses = GameObject.FindGameObjectsWithTag("Bonus");
+        foreach (GameObject bonus in bonuses)
+        {
+            var p1 = new Vector2(bonus.transform.position.x, bonus.transform.position.y);
+            var p2 = new Vector2(transform.position.x, transform.position.y);
+            if (Vector3.Distance(p1, p2) < triggerRadius)
+            {
+                bonus.GetComponent<Bonus>().Apply(playerNumber);
+            }
+        }
+
         var fx = Instantiate(Resources.Load("TriggerEffect"), transform.position, Quaternion.identity) as GameObject;
         fx.transform.localScale *= triggerRadius;
-        Destroy(fx, isBlackHole?blackHoleMaxTimer : 0.25f );
+        Destroy(fx, isBlackHole ? blackHoleMaxTimer : 0.25f);
+
     }
 
     public bool IsOnGround()

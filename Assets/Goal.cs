@@ -18,6 +18,7 @@ public class Goal : MonoBehaviour {
         {
             GetComponent<AudioSource>().pitch += pitchModificer;
         }
+        GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/GoalHit");
     }
 	
 	// Update is called once per frame
@@ -27,7 +28,7 @@ public class Goal : MonoBehaviour {
 
     public void Damage()
     {
-        GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/GoalHit"));
+        GetComponent<AudioSource>().Play();
         var players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach(GameObject player in players)
