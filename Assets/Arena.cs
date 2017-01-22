@@ -9,6 +9,7 @@ public class Arena : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Global.winner = 0;
         Instantiate(Resources.Load("Maps/"+Global.arenaName), transform.position, Quaternion.identity);
 
         var spawnPlayer1 = GameObject.FindGameObjectWithTag("SpawnPlayer1");

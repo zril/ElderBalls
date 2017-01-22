@@ -23,6 +23,12 @@ public class SuperMagnet : SuperBase {
 
     protected override void superKnife()
     {
+
+        if (!GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/SuperWind");
+            GetComponent<AudioSource>().Play();
+        }
         Vector2 direction;
         if(playerNumber == 1)
         {

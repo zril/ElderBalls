@@ -6,4 +6,5 @@ using System.Text;
 static class Global
 {
     public static string arenaName = "Archive/map20";
+    public static int winner = 0;
 }

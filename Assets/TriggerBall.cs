@@ -107,15 +107,20 @@ public class TriggerBall : MonoBehaviour
         if (alive)
         {
             alive = false;
-            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BoomPotion");
-            GetComponent<AudioSource>().Play();
+
 
             if (isBlackHole)
             {
+                GetComponent<AudioSource>().PlayOneShot(Resources.Load<AudioClip>("Sounds/BoomPotion"));
+                GetComponent<AudioSource>().loop = true;
+                 GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/SuperBlackHole");
+                GetComponent<AudioSource>().Play();
                 blackHoleActive = true;
             }
             else
             {
+                GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Sounds/BoomPotion");
+                GetComponent<AudioSource>().Play();
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 Player targetPlayer = null;
                 foreach (GameObject player in players)

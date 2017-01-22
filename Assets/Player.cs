@@ -308,9 +308,12 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        hp--;
-        CheckGameOver();
-        updateUI();
+        if (Global.winner != playerNumber)
+        {
+            hp--;
+            CheckGameOver();
+            updateUI();
+        }
     }
 
     public void CheckGameOver()
@@ -319,44 +322,48 @@ public class Player : MonoBehaviour
         {
             var canvas = GameObject.FindGameObjectWithTag("Canvas");
             var gameOverText = canvas.transform.FindChild("GameOver");
+            var gameOverSubText = canvas.transform.FindChild("GameOverSub");
             var visibleText = gameOverText.GetComponentInChildren<Text>();
+            var visibleSubText = gameOverSubText.GetComponentInChildren<Text>();
             if (!gameOverTriggered)
             {
-                gameOverTriggered = true;
                 GetComponent<AudioSource>().clip = gameOverClip;
                 GetComponent<AudioSource>().Play();
+                gameOverTriggered = true;
             }
             if (playerNumber == 1)
             {
-                visibleText.text = "Player 2 wins !";
+                visibleSubText.text = "Player 2 wins !";
+                Global.winner = 2;
             }
             else
             {
-                visibleText.text = "Player 1 wins !";
+                visibleSubText.text = "Player 1 wins !";
+                Global.winner = 1;
             }
             if (hp < -10)
             {
-                visibleText.text = "Jeu validé par Michael Bay";
+                visibleSubText.text = "Jeu validé par Michael Bay";
             }
             if (hp < -20)
             {
-                visibleText.text = "Je vous dérange pas sinon ?";
+                visibleSubText.text = "Je vous dérange pas sinon ?";
             }
             if (hp < -30)
             {
-                visibleText.text = "Non mais c'est fini là !";
+                visibleSubText.text = "Non mais c'est fini là !";
             }
             if (hp < -40)
             {
-                visibleText.text = "Faut partir maintenant !";
+                visibleSubText.text = "Faut partir maintenant !";
             }
             if (hp < -50)
             {
-                visibleText.text = "We have to go deeper...";
+                visibleSubText.text = "We have to go deeper...";
             }
             if (hp < -60)
             {
-                visibleText.text = "On se fait un Kamoulox ?";
+                visibleSubText.text = "On se fait un Kamoulox ?";
             }
         }
         
