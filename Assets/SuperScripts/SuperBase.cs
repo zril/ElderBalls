@@ -7,6 +7,7 @@ public abstract class SuperBase : MonoBehaviour {
     public int playerNumber;
     public float chargeFactor;
     public float startSpeed;
+    public Vector3 angle;
 
     public bool bomb;
     public bool potion;

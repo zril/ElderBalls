@@ -12,7 +12,13 @@ public class SuperMagnet : SuperBase {
 
     protected override void superBomb()
     {
-        Debug.Log("Super Bomb !");
+
+        var rad = Mathf.Atan2(angle.y, angle.x);
+        var ball = Instantiate(Resources.Load("PlaceBall/PlaceBall"), Vector3.forward + transform.position + angle.normalized * 0.4f, Quaternion.Euler(0, 0, -90 + rad * 180 / Mathf.PI)) as GameObject;
+        var ballscript = ball.GetComponent<PlaceBall>();
+        ballscript.startSpeed = startSpeed ;
+        ballscript.playerNumber = playerNumber;
+        ballscript.magnetic = true;
     }
 
     protected override void superKnife()
@@ -20,14 +26,14 @@ public class SuperMagnet : SuperBase {
         Vector2 direction;
         if(playerNumber == 1)
         {
-            direction = Vector2.left;
+            direction = Vector2.right;
         }
         else
         {
-            direction = Vector2.right;
+            direction = Vector2.left;
         }
 
-        Debug.Log("SuperKnife Active ");
+        Debug.Log("SuperKnife Active");
         var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
         foreach (GameObject ball in balls)
         {
@@ -43,7 +49,12 @@ public class SuperMagnet : SuperBase {
 
     protected override void superPotion()
     {
-        Debug.Log("Super Potion !");
+        var target = angle.normalized * startSpeed;
+        var ball = Instantiate(Resources.Load("TriggerBall"), transform.position, Quaternion.identity) as GameObject;
+        var ballscript = ball.GetComponent<TriggerBall>();
+        ballscript.SetTarget(transform.position + target);
+        ballscript.playerNumber = playerNumber;
+        ballscript.isBlackHole = true;
     }
 
     // Use this for initialization
@@ -56,6 +67,18 @@ public class SuperMagnet : SuperBase {
     	if(knife)
         {
             superKnife();
+        }
+
+        if(bomb)
+        {
+            superBomb();
+            GameObject.Destroy(gameObject);
+        }
+
+        if(potion)
+        {
+            superPotion();
+            GameObject.Destroy(gameObject);
         }
 
 	}
