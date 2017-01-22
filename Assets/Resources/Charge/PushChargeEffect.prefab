@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212458995771921434}
   - component: {fileID: 95491750705972552}
   m_Layer: 0
-  m_Name: ChargeEffect
+  m_Name: PushChargeEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

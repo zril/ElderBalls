@@ -231,7 +231,7 @@ public class Player : MonoBehaviour
         {
             if (placeChargeTimer == 0)
             {
-                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                chargeFx = Instantiate(Resources.Load("Charge/PlaceChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
             }
             placeChargeTimer += Time.deltaTime;
             
@@ -245,7 +245,7 @@ public class Player : MonoBehaviour
         {
             if (triggerChargeTimer == 0)
             {
-                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                chargeFx = Instantiate(Resources.Load("Charge/TriggerChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
             }
             triggerChargeTimer += Time.deltaTime;
         }
@@ -258,7 +258,7 @@ public class Player : MonoBehaviour
         {
             if (pushChargeTimer == 0)
             {
-                chargeFx = Instantiate(Resources.Load("Charge/ChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
+                chargeFx = Instantiate(Resources.Load("Charge/PushChargeEffect"), transform.position - Vector3.back * 0.5f + Vector3.down * 0.15f, Quaternion.identity) as GameObject;
             }
             pushChargeTimer += Time.deltaTime;
         }
