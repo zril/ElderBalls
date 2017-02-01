@@ -43,7 +43,7 @@ public class Bonus : MonoBehaviour {
                     playerScript.moveSpeed += 0.5f;
                     break;
                 case "power":
-                    playerScript.bombPowerFactor += 0.25f;
+                    playerScript.startBonusBomb();
                     break;
                 default:
                     break;

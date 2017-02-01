@@ -57,7 +57,7 @@ public class Push : MonoBehaviour {
         foreach (GameObject trigger in triggers)
         {
             var triggerScript = trigger.GetComponent<TriggerBall>();
-            if (triggerScript.IsOnGround())
+            if (triggerScript.IsOnGround() && triggerScript.isAlive())
             {
                 var p1 = new Vector2(trigger.transform.position.x, trigger.transform.position.y);
                 var p2 = new Vector2(transform.position.x, transform.position.y);

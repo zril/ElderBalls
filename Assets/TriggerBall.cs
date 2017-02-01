@@ -227,4 +227,9 @@ public class TriggerBall : MonoBehaviour
     {
         timeOffset = t;
     }
+
+    public bool isAlive()
+    {
+        return alive;
+    }
 }

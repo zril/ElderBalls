@@ -19,7 +19,9 @@ public class Player : MonoBehaviour
     public int maxSuper = 100;
     public int damageBlockSuperIncr = 2;
     public int maxPlaceBalls = 5;
-    public float bombPowerFactor = 1;
+    public float baseBombPowerFactor = 1;
+    public float bonusBombPowerFactor = 0.625f;
+    public float bonusBombPowerTime = 10.0f;
     public int baseHp = 51;
 
     string xAxis;
@@ -40,6 +42,8 @@ public class Player : MonoBehaviour
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
     private float pushChargeTimer = 0;
+    private float bonusBombPowerTimer = 0;
+    private float bombPowerFactor;
     private Vector3 currentAngle;
     private AudioClip placeClip;
     private AudioClip triggerClip;
@@ -65,6 +69,8 @@ public class Player : MonoBehaviour
         hp = baseHp;
         super = 0;
         placeBallCount = maxPlaceBalls;
+        bombPowerFactor = baseBombPowerFactor;
+        bonusBombPowerTimer = 0;
         triggerBallCount = 1;
         if (playerNumber == 1)
         {
@@ -319,6 +325,16 @@ public class Player : MonoBehaviour
             pushChargeTimer = 0;
         }
 
+        if(bonusBombPowerTimer > 0)
+        {
+            bonusBombPowerTimer -= Time.deltaTime;
+            if(bonusBombPowerTimer <= 0)
+            {
+                endBonusBomb();
+            }
+            updateUI();
+        }
+
         //pickup
         var bonuses = GameObject.FindGameObjectsWithTag("Bonus");
         foreach (GameObject bonus in bonuses)
@@ -442,6 +458,18 @@ public class Player : MonoBehaviour
         updateUI();
     }
 
+    public void startBonusBomb()
+    {
+        bonusBombPowerTimer = bonusBombPowerTime;
+        bombPowerFactor = baseBombPowerFactor + bonusBombPowerFactor;
+    }
+
+    public void endBonusBomb()
+    {
+        bonusBombPowerTimer = 0;
+        bombPowerFactor = baseBombPowerFactor;
+    }
+
     public void AddTriggerBall()
     {
         triggerBallCount++;
@@ -476,6 +504,10 @@ public class Player : MonoBehaviour
 
         var uisuper2 = ui.transform.FindChild("Super2");
         uisuper2.GetChild(0).gameObject.transform.localScale = new Vector3(0.5f, 0.5f + 3.5f * super / maxSuper, 1);
+
+        var uiBonus = ui.transform.FindChild("Bonus");
+        uiBonus.localScale = bonusBombPowerTimer > 0 ? Vector3.one : Vector3.zero;
+        uiBonus.GetChild(0).gameObject.transform.localScale = new Vector3(5.0f * bonusBombPowerTimer / bonusBombPowerTime, 0.5f, 1);
 
         var uiballs = ui.transform.FindChild("Balls");
         for (int i = 0; i < maxMaxPlaceBalls; i++)

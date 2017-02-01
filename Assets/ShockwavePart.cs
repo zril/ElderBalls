@@ -36,18 +36,24 @@ public class ShockwavePart : MonoBehaviour
         if (other.gameObject.tag == "Wall")
         {
             Kill();
-        } else if (other.gameObject.tag == "PlaceBall")
+        }
+        else if (other.gameObject.tag == "PlaceBall")
         {
-            other.GetComponent<PlaceBall>().Trigger();
+            if (!other.GetComponent<PlaceBall>().magnetic)
+            {
+                other.GetComponent<PlaceBall>().Trigger();
+            }
             var pushtmp = pushSpeed * transform.up;
             var push = new Vector2(pushtmp.x, pushtmp.y);
             other.transform.GetComponent<Rigidbody2D>().velocity += push;
+
         }
         else if (other.gameObject.tag == "Goal")
         {
             Kill();
             other.GetComponent<Goal>().Damage();
-        } else if (other.gameObject.tag == "Player")
+        }
+        else if (other.gameObject.tag == "Player")
         {
             other.GetComponent<Player>().addSuper(other.GetComponent<Player>().damageBlockSuperIncr);
             Kill();
