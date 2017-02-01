@@ -112,6 +112,10 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            AddPlaceBall();
+        }
 
         float horizontal = Input.GetAxis(xAxis);
         float vertical = Input.GetAxis(yAxis);
@@ -413,7 +417,18 @@ public class Player : MonoBehaviour
 
     public void AddPlaceBall()
     {
-        placeBallCount++;
+        if(placeBallCount < maxPlaceBalls)
+            placeBallCount++;
+        if (placeBallCount > maxMaxPlaceBalls)
+        {
+            placeBallCount = maxMaxPlaceBalls;
+        }
+        updateUI();
+    }
+
+    public void AddBonusPlaceBall(int bonus)
+    {
+        placeBallCount += bonus;
         if (placeBallCount > maxMaxPlaceBalls)
         {
             placeBallCount = maxMaxPlaceBalls;

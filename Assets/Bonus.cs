@@ -37,7 +37,7 @@ public class Bonus : MonoBehaviour {
             switch (bonusType)
             {
                 case "bomb":
-                    playerScript.AddPlaceBall();
+                    playerScript.AddBonusPlaceBall(5);
                     break;
                 case "speed":
                     playerScript.moveSpeed += 0.5f;
