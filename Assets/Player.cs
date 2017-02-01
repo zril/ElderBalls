@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     private GameObject directionElement;
     private GameObject placeChargeIndicator;
-    private GameObject triggerChargeIndicator;
+    private GameObject triggerTargetIndicator;
     private GameObject pushChargeIndicator;
     private float placeChargeTimer = 0;
     private float triggerChargeTimer = 0;
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         chargeClip = Resources.Load<AudioClip>("Sounds/ChargeAttack");
         directionElement = Instantiate(Resources.Load("Direction"), transform.position + currentAngle, Quaternion.identity) as GameObject;
         placeChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
-        triggerChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
+        triggerTargetIndicator = Instantiate(Resources.Load("TargetPrefab"), transform.position, Quaternion.identity) as GameObject;
         pushChargeIndicator = Instantiate(Resources.Load("charge"), transform.position, Quaternion.identity) as GameObject;
         superString = "SuperMagnet";
 
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
 
         directionElement.transform.position = transform.localPosition + (currentAngle / 2.0f);
         placeChargeIndicator.transform.position = transform.localPosition;
-        triggerChargeIndicator.transform.position = transform.localPosition;
+        triggerTargetIndicator.transform.position = transform.localPosition;
         pushChargeIndicator.transform.position = transform.localPosition;
 
 
@@ -170,9 +170,13 @@ public class Player : MonoBehaviour
         placeChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
 
 
-        float triggerChargePct = Mathf.Min(ballDistFactor * triggerChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
-        triggerChargeIndicator.transform.localScale = 0.04f * new Vector3(triggerChargePct * 2, triggerChargePct * 2, triggerChargePct);
-        triggerChargeIndicator.transform.rotation = Quaternion.Euler(0, 0, rad * 180 / Mathf.PI);
+        
+        triggerTargetIndicator.transform.localScale = triggerChargeTimer > 0? Vector3.one: Vector3.zero;
+        if (triggerChargeTimer > 0)
+        {
+            var target = currentAngle.normalized * (Mathf.Min(ballDistBase + ballDistFactor * triggerChargeTimer, ballDistMax));
+            triggerTargetIndicator.transform.position = target + transform.position;
+        }
 
         float pushChargePct = Mathf.Min(ballDistFactor * pushChargeTimer, ballDistMax - ballDistBase) / (ballDistMax - ballDistBase);
         pushChargeIndicator.transform.localScale = 0.04f * new Vector3(pushChargePct * 2, pushChargePct * 2, pushChargePct);

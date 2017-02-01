@@ -29,6 +29,8 @@ public class TriggerBall : MonoBehaviour
     private float blackHoleTimer;
     private bool alive = true;
 
+    private GameObject triggerTargetIndicator;
+
     private float timeOffset = 1;
 
     // Use this for initialization
@@ -42,11 +44,16 @@ public class TriggerBall : MonoBehaviour
             triggerMaxTimer = blackHoleTriggerMaxTimer;
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Trigger/blackhole");
         }
+
+        triggerTargetIndicator = Instantiate(Resources.Load("TargetPrefab"), transform.position, Quaternion.identity) as GameObject;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        triggerTargetIndicator.transform.localScale = IsOnGround() ? Vector3.zero : Vector3.one;
+        triggerTargetIndicator.transform.position = targetPos;
         if (throwTimer >= 0)
         {
             throwTimer -= Time.deltaTime;
@@ -193,6 +200,7 @@ public class TriggerBall : MonoBehaviour
         }
         else if (!GetComponent<AudioSource>().isPlaying)
         {
+            GameObject.Destroy(triggerTargetIndicator);
             GameObject.Destroy(gameObject);
         }
     }
