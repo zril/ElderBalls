@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 
     public int playerNumber = 1;
     public float moveSpeed = 2;
+    public float maxSpeed = 3.5f;
+    public float bonusSpeedIncr = 0.5f;
     public float ballSpeedBase = 2;
     public float ballSpeedFactor = 2;
     public float ballSpeedMax = 10;
@@ -478,6 +480,13 @@ public class Player : MonoBehaviour
     public void RemoveTriggerBall()
     {
         triggerBallCount--;
+    }
+
+    public void increaseSpeed()
+    {
+        moveSpeed += bonusSpeedIncr;
+        if (moveSpeed > maxSpeed)
+            moveSpeed = maxSpeed;
     }
 
     public void addSuper(int increment)
