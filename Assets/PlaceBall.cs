@@ -139,7 +139,6 @@ public class PlaceBall : MonoBehaviour {
             Vector3 cratpos = transform.position;
             cratpos.z++;
             var crat = Instantiate(Resources.Load("Cratere"), cratpos, Quaternion.identity);
-            Destroy(crat, 5f);
             var fx = Instantiate(Resources.Load("PlaceBall/DetonateEffect"), transform.position, Quaternion.identity);
             Destroy(fx, 0.05f);
             Destroy(GetComponent<CircleCollider2D>());

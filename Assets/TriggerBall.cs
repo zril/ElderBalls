@@ -54,6 +54,8 @@ public class TriggerBall : MonoBehaviour
     {
         triggerTargetIndicator.transform.localScale = IsOnGround() ? Vector3.zero : Vector3.one;
         triggerTargetIndicator.transform.position = targetPos;
+        triggerTargetIndicator.transform.localScale = throwTimer / throwTime * Vector3.one;
+
         if (throwTimer >= 0)
         {
             throwTimer -= Time.deltaTime;
