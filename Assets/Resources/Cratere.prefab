@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4101435688839594}
   - component: {fileID: 212007398113549688}
+  - component: {fileID: 114880319490839944}
   m_Layer: 0
   m_Name: Cratere
   m_TagString: Untagged
@@ -40,6 +41,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114880319490839944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899107864574836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6437fe87f14d28e40b7952875ed0462e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startFadeTime: 1
+  fadeTime: 2
 --- !u!212 &212007398113549688
 SpriteRenderer:
   m_ObjectHideFlags: 1
