@@ -26,6 +26,12 @@ public class Player : MonoBehaviour
     public float bonusBombPowerTime = 10.0f;
     public int baseHp = 51;
 
+    public float repelTime = 0.5f;
+    public float repelForce = 1.0f;
+
+    private Vector2 repelDirection;
+    private float repelTimer=0;
+
     string xAxis;
     string yAxis;
     string placeButton;
@@ -135,6 +141,13 @@ public class Player : MonoBehaviour
         bool pushUp = Input.GetButtonUp(pushButton);
         bool superButton = Input.GetButton(this.superButton);
         
+
+        if(repelTimer > 0)
+        {
+            repelTimer -= Time.deltaTime;
+            var repelVector = repelDirection.magnitude * (repelTimer / repelTime) * repelDirection.normalized * Time.deltaTime * repelForce;
+            transform.localPosition += new Vector3(repelVector.x, repelVector.y);
+        }
 
         Vector3 movement = new Vector3(horizontal, vertical, 0);
         if (movement.magnitude > 1) movement.Normalize();
@@ -487,6 +500,12 @@ public class Player : MonoBehaviour
         moveSpeed += bonusSpeedIncr;
         if (moveSpeed > maxSpeed)
             moveSpeed = maxSpeed;
+    }
+
+    public void repel(Vector2 direction)
+    {
+        repelTimer = repelTime;
+        repelDirection = direction;
     }
 
     public void addSuper(int increment)

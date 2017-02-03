@@ -138,6 +138,7 @@ public class TriggerBall : MonoBehaviour
                 }
                 var players = GameObject.FindGameObjectsWithTag("Player");
                 Player targetPlayer = null;
+                var currentPos = new Vector2(transform.position.x, transform.position.y);
                 foreach (GameObject player in players)
                 {
                     var playerScript = player.GetComponent<Player>();
@@ -146,15 +147,22 @@ public class TriggerBall : MonoBehaviour
                         targetPlayer = playerScript;
                         playerScript.AddTriggerBall();
                     }
+
+                    var p1 = new Vector2(player.transform.position.x, player.transform.position.y);
+                    if(Vector3.Distance(p1,currentPos) < triggerRadius)
+                    {
+                        var pushDirection = p1 - currentPos;
+                        playerScript.repel(pushDirection.normalized * (triggerRadius - Vector3.Distance(p1, currentPos)));
+                    }
+
                 }
 
                 var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
                 foreach (GameObject ball in balls)
                 {
                     var p1 = new Vector2(ball.transform.position.x, ball.transform.position.y);
-                    var p2 = new Vector2(transform.position.x, transform.position.y);
 
-                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    if (Vector3.Distance(p1, currentPos) < triggerRadius)
                     {
                         if (targetPlayer != null)
                         {
@@ -168,8 +176,7 @@ public class TriggerBall : MonoBehaviour
                 foreach (GameObject bonus in bonuses)
                 {
                     var p1 = new Vector2(bonus.transform.position.x, bonus.transform.position.y);
-                    var p2 = new Vector2(transform.position.x, transform.position.y);
-                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    if (Vector3.Distance(p1, currentPos) < triggerRadius)
                     {
                         bonus.GetComponent<Bonus>().Apply(playerNumber);
                     }
