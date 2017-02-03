@@ -48,6 +48,9 @@ public class EventSpawn : MonoBehaviour {
             case "explosion":
                 ev = Instantiate(Resources.Load("Event/EventExplosion"), transform.position, Quaternion.identity) as GameObject;
                 break;
+            case "random":
+                ev = Instantiate(Resources.Load("Event/EventRandom"), transform.position, Quaternion.identity) as GameObject;
+                break;
             default:
                 break;
         }
@@ -69,7 +72,15 @@ public class EventSpawn : MonoBehaviour {
             }
         }
 
-        ev.GetComponent<Event>().SetParent(this);
+        var eventScript = ev.GetComponent<Event>();
+        if (eventScript != null)
+            eventScript.SetParent(this);
+
+        var randEventScript = ev.GetComponent<EventRandom>();
+        if (randEventScript != null)
+            randEventScript.SetParent(this);
+
+
         freeze = true;
     }
 

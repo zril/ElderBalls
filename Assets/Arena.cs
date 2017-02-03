@@ -60,6 +60,9 @@ public class Arena : MonoBehaviour
         var moveLimit2 = Instantiate(Resources.Load("MoveLimit"), spawnMoveLimit2.transform.position, Quaternion.identity) as GameObject;
         moveLimit2.GetComponent<MoveLimit>().playerNumber = 2;
 
+        Instantiate(Resources.Load("MapObjects/Delimitation"), spawnMoveLimit1.transform.position, Quaternion.identity);
+        Instantiate(Resources.Load("MapObjects/Delimitation"), spawnMoveLimit2.transform.position, Quaternion.identity);
+
         foreach (GameObject spawnbonus in spawnBonusList)
         {
             var spawn = Instantiate(Resources.Load("Bonus/BonusSpawn"), spawnbonus.transform.position, Quaternion.identity) as GameObject;

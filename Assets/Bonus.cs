@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bonus : MonoBehaviour {
 
     public string bonusType;
+    private EventSpawn parent;
 
     private float dirX;
     private float dirY;

@@ -193,6 +193,17 @@ public class TriggerBall : MonoBehaviour
                     }
                 }
 
+                var randEvents = GameObject.FindGameObjectsWithTag("RandomEvent");
+                foreach (GameObject ev in randEvents)
+                {
+                    var p1 = new Vector2(ev.transform.position.x, ev.transform.position.y);
+                    var p2 = new Vector2(transform.position.x, transform.position.y);
+                    if (Vector3.Distance(p1, p2) < triggerRadius)
+                    {
+                        ev.GetComponent<EventRandom>().Apply(playerNumber);
+                    }
+                }
+
             }
 
             Destroy(GetComponent<SpriteRenderer>());

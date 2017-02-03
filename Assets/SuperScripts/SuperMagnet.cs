@@ -38,8 +38,7 @@ public class SuperMagnet : SuperBase {
         {
             direction = Vector2.left;
         }
-
-        Debug.Log("SuperKnife Active");
+        
         var balls = GameObject.FindGameObjectsWithTag("PlaceBall");
         foreach (GameObject ball in balls)
         {
