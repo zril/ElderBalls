@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212121327536005410}
   - component: {fileID: 58151055381931314}
   - component: {fileID: 50030348025219386}
-  - component: {fileID: 114102816520440394}
+  - component: {fileID: 114526585612502852}
   m_Layer: 9
   m_Name: EventRandom
-  m_TagString: Event
+  m_TagString: RandomEvent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114102816520440394
+--- !u!114 &114526585612502852
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -85,10 +85,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1222059335705880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 112d04e3df353794cad5c277bb88d29c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2eda3e3796af6934bae5011fa4bd3221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventType: random
 --- !u!212 &212121327536005410
 SpriteRenderer:
   m_ObjectHideFlags: 1

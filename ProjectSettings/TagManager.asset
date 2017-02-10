@@ -25,6 +25,7 @@ TagManager:
   - EventSpawn
   - Event
   - HowTo
+  - RandomEvent
   layers:
   - Default
   - TransparentFX

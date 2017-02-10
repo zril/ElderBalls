@@ -270,12 +270,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   moveSpeed: 2
+  maxSpeed: 3
+  bonusSpeedIncr: 0.5
   ballSpeedBase: 2
   ballSpeedFactor: 10
   ballSpeedMax: 10
   ballDistBase: 0
   ballDistFactor: 10
   ballDistMax: 10
+  pitchModifier: 0.1
+  maxSuper: 100
+  damageBlockSuperIncr: 2
+  maxPlaceBalls: 5
+  baseBombPowerFactor: 1
+  bonusBombPowerFactor: 0.625
+  bonusBombPowerTime: 10
+  baseHp: 51
+  repelTime: 0.5
+  repelForce: 5
 --- !u!212 &212290978161503206
 SpriteRenderer:
   m_ObjectHideFlags: 1
